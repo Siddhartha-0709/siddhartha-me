@@ -130,7 +130,7 @@ function Home() {
                 </p>
                 <br />
                 <center className="mt-2 pb-4">
-                    <a className="text-lg font-bold hover:underline hover:text-violet-500" href="">
+                    <a className="text-lg font-bold hover:underline hover:text-violet-500" href="https://siddhartha-0709.github.io/siddhartha-speaks/">
                     &lt; Link to My Blog Page /&gt;
                     </a>
                 </center>
