@@ -35,7 +35,7 @@ function Home() {
                 </div>
                 <div class="col-span-1" style={{ backgroundColor: "#000000" }}>
                     <img
-                        src="src\assets\profilepic.png"
+                        src="https://firebasestorage.googleapis.com/v0/b/shaajo-online-jewellery-a2f57.appspot.com/o/profilepic.png?alt=media&token=edbd6865-1e9d-421a-bae1-a28ec0469569"
                         alt="Your Image"
                         class="rounded-xl"
                         style={{ marginLeft: "auto" }}
