@@ -9,7 +9,7 @@ function Home() {
                     siddhartha.ai
                 </h1>
             </div>
-            <div class="grid grid-cols-2 font-mono">
+            <div class="grid grid-cols-2 gap-4 font-mono">
                 <div
                     class="col-span-1"
                     style={{ backgroundColor: "#000000", paddingTop: 200 }}
@@ -20,18 +20,21 @@ function Home() {
                     >
                         Hi There Everyone!
                     </p>
-                    <h2 class="text-2xl font-bold text-white" style={{ fontSize: 35 }}>
-                        I am <span className="text-violet-500">Siddhartha</span>
-                    </h2>
-                    <h1 className=" font-bold text-white" style={{ fontSize: 40 }}>
-                        Passionate Programmer
-                    </h1>
-                    <h1 className="font-bold text-white" style={{ fontSize: 30 }}>
-                        Enthusisastic Learner
-                    </h1>
-                    <h1 className="font-bold text-white" style={{ fontSize: 30 }}>
-                        Devoted Engineer
-                    </h1>
+                    <div class="text-left">
+                        <h2 class="text-3xl font-bold text-white">
+                            I am <span class="text-violet-500">Siddhartha</span>
+                        </h2>
+                        <h1 class="font-bold text-white text-sm md:text-5xl">
+                            Passionate Programmer
+                        </h1>
+                        <h1 class="font-bold text-white text-md md:text-4xl">
+                            Enthusiastic Learner
+                        </h1>
+                        <h1 class="font-bold text-white text-md md:text-3xl">
+                            Devoted Engineer
+                        </h1>
+                    </div>
+
                 </div>
                 <div class="col-span-1" style={{ backgroundColor: "#000000" }}>
                     <img
@@ -43,12 +46,11 @@ function Home() {
                 </div>
             </div>
             <div style={{ backgroundColor: "#000000", paddingTop: 20 }}>
-                <p className="font-bold text-white text-lg text-right mr-2 mt-1 font-mono">
-                    I am a Software Engineer who aims to architect the world with Lines of
-                    Code
+                <p class="font-bold text-white text-base md:text-lg lg:text-xl text-right md:text-left mr-2 mt-1 font-mono">
+                    I am a Software Engineer who aims to architect the world with Lines of Code
                 </p>
             </div>
-            <div class="grid grid-cols-2 font-mono h-1/2">
+            <div class="md:grid grid-cols-2 font-mono h-1/2">
                 <div class="col-span-1" style={{ backgroundColor: "#000000" }}>
                     <h1 className="text-white text-2xl mt-20 mb-20 font-bold">
                         From crafting elegant code to orchestrating seamless DevOps
@@ -66,12 +68,12 @@ function Home() {
                 style={{ backgroundColor: "#000000", paddingTop: 20 }}
             >
                 <h1 className="text-white text-5xl font-bold">
-                    I offer some top notch <span className="text-violet-500">services!</span> 
+                    I offer some top notch <span className="text-violet-500">services!</span>
                 </h1>
                 <br />
-                <div class="grid grid-cols-4 gap-3 p-4 font-mono">
+                <div class="md:grid grid-cols-4 gap-3 p-4 font-mono">
                     <div
-                        class="bg-gray-300 p-4"
+                        class="bg-gray-300 p-4 mb-2"
                         style={{ backgroundColor: "#151515", borderRadius: 10 }}
                     >
                         <h1 className="text-white text-2xl font-bold">Tech Consultancy | <span className="text-violet-500">Services</span> </h1>
@@ -83,7 +85,7 @@ function Home() {
                         </p>
                     </div>
                     <div
-                        class="bg-gray-400 p-4"
+                        class="bg-gray-400 p-4 mb-2"
                         style={{ backgroundColor: "#151515", borderRadius: 10 }}
                     >
                         <h1 className="text-white text-2xl font-bold">Android Development | <span className="text-violet-500">Native</span></h1>
@@ -96,7 +98,7 @@ function Home() {
                         </p>
                     </div>
                     <div
-                        class="bg-gray-500 p-4"
+                        class="bg-gray-500 p-4 mb-2"
                         style={{ backgroundColor: "#151515", borderRadius: 10 }}
                     >
                         <h1 className="text-white text-2xl font-bold">Full Stack Development | <span className="text-violet-500">Web and Android</span></h1>
@@ -109,7 +111,7 @@ function Home() {
                         </p>
                     </div>
                     <div
-                        class="bg-gray-500 p-4"
+                        class="bg-gray-500 p-4 mb-2"
                         style={{ backgroundColor: "#151515", borderRadius: 10 }}
                     >
                         <h1 className="text-white text-2xl font-bold">Cloud & DevOps | <span className="text-violet-500">Practices</span></h1>
@@ -131,7 +133,7 @@ function Home() {
                 <br />
                 <center className="mt-2 pb-4">
                     <a className="text-lg font-bold hover:underline hover:text-violet-500" href="https://siddhartha-0709.github.io/siddhartha-speaks/">
-                    &lt; Link to My Blog Page /&gt;
+                        &lt; Link to My Blog Page /&gt;
                     </a>
                 </center>
             </div>
@@ -139,9 +141,9 @@ function Home() {
                 <h1 className="text-5xl font-mono mb-20 font-bold">
                     Explore a Showcase of My Crafted <span className="text-violet-500">Projects,</span>
                 </h1>
-                <div class="grid grid-cols-4 gap-3 p-4 bg-black font-mono">
+                <div class="md:grid grid-cols-4 gap-3 p-4 bg-black font-mono">
                     <div
-                        class="bg-gray-300 p-4"
+                        class="bg-gray-300 p-4 mb-2"
                         style={{ backgroundColor: "#151515", borderRadius: 10 }}
                     >
                         <h1 className="text-violet-500 font-bold text-xl">
@@ -161,7 +163,7 @@ function Home() {
                         </a>
                     </div>
                     <div
-                        class="bg-gray-300 p-4"
+                        class="bg-gray-300 p-4 mb-2"
                         style={{ backgroundColor: "#151515", borderRadius: 10 }}
                     >
                         <h1 className="text-violet-500 font-bold text-xl">HaemoLink</h1>
@@ -178,7 +180,7 @@ function Home() {
                         </a>
                     </div>
                     <div
-                        class="bg-gray-300 p-4"
+                        class="bg-gray-300 p-4 mb-2"
                         style={{ backgroundColor: "#151515", borderRadius: 10 }}
                     >
                         <h1 className="text-violet-500 font-bold text-xl">Shrink It!</h1>
@@ -196,7 +198,7 @@ function Home() {
                         </a>
                     </div>
                     <div
-                        class="bg-gray-300 p-4"
+                        class="bg-gray-300 p-4 mb-2"
                         style={{ backgroundColor: "#151515", borderRadius: 10 }}
                     >
                         <h1 className="text-violet-500 font-bold text-xl">Shaajo Online Jewellery</h1>
@@ -214,7 +216,7 @@ function Home() {
             </div>
             <div className="bg-black text-white font-mono pt-20">
                 <h1 className="text-5xl font-bold">
-                Experience Gained from Notable  <span className="text-violet-500">Employers,</span> 
+                    Experience Gained from Notable  <span className="text-violet-500">Employers,</span>
                 </h1>
                 <br />
                 <br />
@@ -242,8 +244,8 @@ function Home() {
                 <br />
                 <br />
                 <br />
-                <div className="grid grid-cols-3 gap-3 p-4 bg-black font-mono text-white mb-20">
-                    <div>
+                <div className="md:grid grid-cols-3 gap-3 p-4 bg-black font-mono text-white mb-20">
+                    <div className="mb-10">
                         <a
                             className="text-xl font-bold hover:underline hover:text-violet-500"
                             href="https://www.instagram.com/sidd_myself/"
@@ -252,7 +254,7 @@ function Home() {
                         </a>
                         <p>For all regular and urgent questions.</p>
                     </div>
-                    <div>
+                    <div className="mb-10">
                         <a
                             className="text-xl font-bold hover:underline hover:text-violet-500"
                             href="https://www.linkedin.com/in/sidd-myself/"
@@ -261,7 +263,7 @@ function Home() {
                         </a>
                         <p>For collaboration related services.</p>
                     </div>
-                    <div>
+                    <div className="mb-10">
                         <a
                             className="text-xl font-bold hover:underline hover:text-violet-500"
                             href="mailto:siddhartham09@gmail.com"
@@ -272,8 +274,7 @@ function Home() {
                     </div>
                 </div>
             </div>
-            
-            <div className="bg-black pt-20 pb-20 font-mono text-white h-screen">
+            <div className="bg-black pt-0 pb-20 font-mono text-white h-screen">
                 <h1 className="text-5xl font-bold">Let's Work Together on</h1>
                 <h1 className="text-5xl font-bold">your next <span className="text-violet-500">project</span> . . . </h1>
                 <center className="text-2xl font-bold mt-40">
