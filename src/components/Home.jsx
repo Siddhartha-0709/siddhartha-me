@@ -132,7 +132,7 @@ function Home() {
                 </p>
                 <br />
                 <center className="mt-2 pb-4">
-                    <a className="text-lg font-bold hover:underline hover:text-violet-500" href="https://evening-aragon-ea2.notion.site/Siddhartha-Speaks-fde87972ee5b4eb39d878ebf17738e3d">
+                    <a className="text-lg font-bold hover:underline hover:text-violet-500" href="https://siddhartha-speaks.notion.site/siddhartha-speaks/Siddhartha-Speaks-fde87972ee5b4eb39d878ebf17738e3d">
                         &lt; Link to My Blog Page /&gt;
                     </a>
                 </center>
