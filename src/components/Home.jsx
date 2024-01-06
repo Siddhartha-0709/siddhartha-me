@@ -6,7 +6,7 @@ function Home() {
             {" "}
             <div style={{ backgroundColor: "#000000" }} className="font-mono">
                 <h1 className="font-bold text-xl text-violet-500">
-                    siddhartha.ai
+                   &gt; siddhartha.dev &lt;
                 </h1>
             </div>
             <div class="grid grid-cols-2 gap-4 font-mono">
@@ -132,7 +132,7 @@ function Home() {
                 </p>
                 <br />
                 <center className="mt-2 pb-4">
-                    <a className="text-lg font-bold hover:underline hover:text-violet-500" href="https://siddhartha-0709.github.io/siddhartha-speaks/">
+                    <a className="text-lg font-bold hover:underline hover:text-violet-500" href="https://evening-aragon-ea2.notion.site/Siddhartha-Speaks-fde87972ee5b4eb39d878ebf17738e3d">
                         &lt; Link to My Blog Page /&gt;
                     </a>
                 </center>
