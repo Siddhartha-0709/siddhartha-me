@@ -10,17 +10,21 @@ function BlogView() {
 
     const [markdownContent, setMarkdownContent] = useState('');
 
-    useEffect(() => {
-        if (blog && blog.markdownUrl) {
-            axios.get(blog.markdownUrl)
-                .then(response => {
-                    setMarkdownContent(response.data);
-                })
-                .catch(error => {
-                    console.error('Error fetching markdown file:', error);
-                });
+    const fetchBlogContent = async ()=>{
+        try {
+            const response  = await axios.get(blog.markdownUrl);
+            setMarkdownContent(response.data);
+            console.log('Markdown content:', response.data);
+        } catch (error) {
+            console.error('Error fetching markdown file:', error);
         }
-    }, [blog]);
+
+    }
+
+    useEffect(() => {
+        fetchBlogContent();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     if (!blog) {
         return <p className="text-white">No blog data available</p>;
@@ -41,7 +45,7 @@ function BlogView() {
                             className="w-full h-auto rounded-lg"
                         />
                     </div>
-                   
+
                     <div className="bg-gray-950 rounded-lg p-4 overflow-auto">
                         <ReactMarkdown className="markdown-content">
                             {markdownContent}
