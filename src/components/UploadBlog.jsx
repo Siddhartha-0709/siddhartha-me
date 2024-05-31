@@ -9,6 +9,7 @@ import Loader from './Loader';
 
 function UploadBlog() {
     const [title, setTitle] = useState("");
+    const [password, setPassword] = useState("");
     const [description, setDescription] = useState("");
     const [thumbnail, setThumbnail] = useState(null);
     const [markdown, setMarkdown] = useState(null);
@@ -16,6 +17,17 @@ function UploadBlog() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+
+        if(!title || !password || !description || !thumbnail || !markdown){
+            alert("Please fill all the fields");
+            return;
+        }
+        if(password !== "sidd12345"){
+            alert("Incorrect password");
+            return;
+        }
+
 
         const formData = new FormData();
         formData.append("title", title);
@@ -83,6 +95,19 @@ function UploadBlog() {
                                     value={description}
                                     onChange={(e) => setDescription(e.target.value)}
                                     rows={3}
+                                    required
+                                    className="mt-1 p-2 block w-full rounded-md bg-gray-800 border-gray-700 text-gray-50"
+                                />
+                            </div>
+                            <div className="mb-6">
+                                <label htmlFor="title" className="block text-sm font-medium text-gray-400">
+                                    Password
+                                </label>
+                                <input
+                                    id="password"
+                                    type="password"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
                                     required
                                     className="mt-1 p-2 block w-full rounded-md bg-gray-800 border-gray-700 text-gray-50"
                                 />
