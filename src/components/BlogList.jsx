@@ -14,7 +14,7 @@ function BlogList() {
   const getBlogs = async () => {
     try {
       setLoading(true);
-      const response = await axios.get('http://15.207.54.139:3000/api/v1/blogs/getBlogs');
+      const response = await axios.get('https://lobster-app-lh22k.ondigitalocean.app/api/v1/blogs/getBlogs');
       console.log(response.data.blogs);
       setBlogs(response.data.blogs);
       setLoading(false);

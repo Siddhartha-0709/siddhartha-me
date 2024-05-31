@@ -32,7 +32,7 @@ function UploadBlog() {
         console.log('Data--', formDataObject);
         try {
             setLoading(true);
-            const response = await axios.post('http://15.207.54.139:3000/api/v1/blogs/uploadBlog', formData, {
+            const response = await axios.post('https://lobster-app-lh22k.ondigitalocean.app/api/v1/blogs/uploadBlog', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
