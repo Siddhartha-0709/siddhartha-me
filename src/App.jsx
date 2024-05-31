@@ -12,11 +12,13 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import BlogView from './components/BlogView';
 import CommingSoon from './components/CommingSoon';
+import ScrollToTop from './components/ScrollToTop';
 
 function App() {
   return (
     <BrowserRouter>
       <Header />
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
@@ -26,7 +28,7 @@ function App() {
         <Route path="/comming-soon" element={<CommingSoon />} />
 
       </Routes>
-      <Footer/>
+      <Footer />
     </BrowserRouter>
   )
 }
