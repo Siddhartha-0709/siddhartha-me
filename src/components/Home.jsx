@@ -45,7 +45,7 @@ function Home() {
             </div>
             <div style={{ paddingTop: 20 }}>
                 <p className="font-bold text-white text-base md:text-lg lg:text-xl text-right md:text-left mr-2 mt-1 font-mono">
-                    I am a Software Engineer who aims to architect the world with Lines of Code! 
+                    I am a Software Engineer who aims to architect the world with Lines of Code!
                 </p>
             </div>
             <div className="md:grid grid-cols-2 font-mono h-1/2">
@@ -133,9 +133,13 @@ function Home() {
                     {/* <a className="text-lg font-bold hover:underline hover:text-violet-500" href="https://siddhartha-speaks.notion.site/siddhartha-speaks/Siddhartha-Speaks-fde87972ee5b4eb39d878ebf17738e3d">
                         &lt; Link to My Blog Page /&gt;
                     </a> */}
-                    <Link to={'/blogs'} className="text-lg font-bold hover:underline hover:text-violet-500" style={{ textDecoration: 'none' }}>
-                        <h1 className="text-2xl font-bold hover:underline hover:text-violet-500 hover:underline-offset-4">Check out my Blogs!</h1>
+
+                    <Link to="/blogs" className="block bg-violet-600 text-white py-2 w-80 rounded font-mono text-lg mt-5 hover:bg-violet-800" style={{ textDecoration: 'none' }}>
+                        <h1 className="">
+                            Check out my Blogs!
+                        </h1>
                     </Link>
+
                 </center>
             </div>
             <div className="bg-gray-950 text-white pt-20">

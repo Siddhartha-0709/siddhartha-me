@@ -24,7 +24,11 @@ function Header() {
                         For the Love of Tech
                     </Link>
                 </nav>
-
+                <nav className="md:hidden mr-3">
+                    <Link className="hover:bg-violet-800 text-white py-2 px-4 rounded font-mono text-lg bg-violet-600" to={"/blogs"} >
+                        Blogs   
+                    </Link>
+                </nav>
             </div>
         </header>
     )

@@ -34,10 +34,10 @@ function BlogView() {
         <div className="min-h-screen flex flex-col bg-gray-950 text-white">
             <main className="flex-grow py-12 px-4 md:px-6">
                 <div className="container mx-auto">
-                    <h1 className="text-4xl font-bold mb-8">{blog.title}</h1>
-                    <h1 className="text-white text-2xl mb-4">
+                    {/* <h1 className="text-3xl font-bold mb-8">{blog.title}</h1> */}
+                    {/* <h1 className="text-white text-xl mb-4">
                         {blog.shortDescription}
-                    </h1>
+                    </h1> */}
                     <div className="mb-8">
                         <img
                             src={blog.thumbnailUrl}
@@ -45,8 +45,7 @@ function BlogView() {
                             className="w-full h-auto rounded-lg"
                         />
                     </div>
-
-                    <div className="bg-gray-950 rounded-lg p-4 overflow-auto">
+                    <div className="bg-gray-950 rounded-lg overflow-auto">
                         <ReactMarkdown className="markdown-content">
                             {markdownContent}
                         </ReactMarkdown>
