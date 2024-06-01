@@ -7,6 +7,10 @@
         {
             "src": "/blogs",
             "dest": "/"
+        },
+        {
+            "src": "/blogs-view",
+            "dest": "/blogs"
         }
     ]
 }
