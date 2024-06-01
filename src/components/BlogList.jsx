@@ -36,7 +36,7 @@ function BlogList() {
           <header className="py-12 px-4 md:px-6">
             <div className="container mx-auto">
               <h1 className="text-4xl font-bold mb-8">My Blog - Thoughts, Stories, and Insights</h1>
-              <h1 className="text-2xl mb-8">
+              <h1 className="text-xl mb-8">
                 Hello and welcome to my blog!
                 <br />
                 <br /> Here, you'll find a curated selection of my latest posts, where I share my thoughts, stories, and
@@ -45,7 +45,7 @@ function BlogList() {
                 while I express my personal views, I do so with the utmost respect and understanding, with no intention
                 to cause harm or offense to any community.
               </h1>
-              <h1 className="text-2xl mb-8">
+              <h1 className="text-xl mb-8">
                 As you journey through my blog, I hope you find inspiration, entertainment, and perhaps even a new
                 perspective on the world. Each post is crafted with care and authenticity, reflecting my genuine passion
                 for sharing ideas and connecting with readers like you. So, make yourself comfortable, grab a cup of
