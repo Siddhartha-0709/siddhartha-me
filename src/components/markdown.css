@@ -9,31 +9,37 @@
 .markdown-content h1 {
   font-size: 2em; /* Customize header sizes */
   margin-bottom: 0.5em;
+  margin-top: 0.5em;
   font-weight: 700;
 }
 .markdown-content h2 {
   font-size: 1.75em;
   margin-bottom: 0.5em;
+  margin-top: 0.5em;
   font-weight: 600;
 }
 .markdown-content h3 {
   font-size: 1.5em;
   margin-bottom: 0.5em;
+  margin-top: 0.5em;
   font-weight: 600;
 }
 .markdown-content h4 {
   font-size: 1.25em;
   margin-bottom: 0.5em;
+  margin-top: 0.5em;
   font-weight: 400;
 }
 .markdown-content h5 {
   font-size: 1em;
   margin-bottom: 0.5em;
+  margin-top: 0.5em;
   font-weight: 300;
 }
 .markdown-content h6 {
   font-size: 0.875em;
   margin-bottom: 0.5em;
+  margin-top: 0.5em;
   font-weight: 200;
 }
 
@@ -58,6 +64,7 @@
 .markdown-content ul,
 .markdown-content ol {
   margin-bottom: 1em;
+  margin-top: 1em;
   padding-left: 1.5em;
   
 }
@@ -81,6 +88,8 @@
   color: #f1f1f1;
   padding: 1em;
   border-radius: 5px;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
   overflow-x: auto;
 }
 .markdown-content code {
