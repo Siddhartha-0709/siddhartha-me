@@ -4,6 +4,7 @@ import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import ReactMarkdown from 'react-markdown';
 import '../components/markdown.css';
+import 'github-markdown-css/github-markdown-dark.css';
 function BlogView() {
     const location = useLocation();
     const blog = location.state;
@@ -46,7 +47,7 @@ function BlogView() {
                         />
                     </div>
                     <div className="bg-gray-950 rounded-lg overflow-auto">
-                        <ReactMarkdown className="markdown-content">
+                        <ReactMarkdown className="markdown-body p-4">
                             {markdownContent}
                         </ReactMarkdown>
                     </div>

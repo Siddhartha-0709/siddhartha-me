@@ -36,21 +36,22 @@
   margin-top: 0.5em;
   font-weight: 300;
 }
-.markdown-content h6 {
-  font-size: 0.875em;
+.markdown-body h6 {
+  font-size: 1.15.em;
   margin-bottom: 0.5em;
   margin-top: 0.5em;
-  font-weight: 200;
+  font-weight: 700;
 }
 
 /* Paragraph styles */
-.markdown-content p {
-  font-size: 1.2em;
+.markdown-body p {
+  font-size: 1.3em;
   margin-bottom: 1em; /* Add spacing between paragraphs */
+  background-color: '#2e1065';
 }
 
 /* Image styles */
-.markdown-content img {
+.markdown-body img {
   display: block;
   margin: 0 auto; /* Center the image */
   background-color: white; /* White background for the image */
@@ -83,21 +84,39 @@
 }
 
 /* Code block styles */
-.markdown-content pre {
-  background-color: #333;
-  color: #f1f1f1;
+.markdown-body pre {
+  background-color: #2d2d2d;
+  color: #f8f8f2;
   padding: 1em;
   border-radius: 5px;
   margin-top: 0.5em;
   margin-bottom: 0.5em;
   overflow-x: auto;
+  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  font-size: 0.9em;
+  line-height: 1.5;
 }
-.markdown-content code {
-  background-color: #333;
-  color: #f1f1f1;
+
+/* Inline code styles */
+.markdown-body code {
+  background-color: #2d2d2d;
+  color: #f8f8f2;
   padding: 0.2em 0.4em;
   border-radius: 3px;
+  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  font-size: 0.9em;
 }
+
+/* Differentiated block code styles for react-syntax-highlighter */
+.markdown-body pre code {
+  background-color: inherit;
+  color: inherit;
+  padding: 0;
+  border-radius: 0;
+  font-size: inherit;
+  line-height: inherit;
+}
+
 
 /* Link styles */
 .markdown-content a {
