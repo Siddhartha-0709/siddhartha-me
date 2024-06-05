@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sample Page with Code Highlighting</title>
+  <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/tomorrow.min.css"> -->
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css"> -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  
+  <!-- and it's easy to individually load additional languages -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
+  
+  <script>hljs.highlightAll();</script>
+
+</head>
+<body class="bg-gray-100 p-4">
+  <h1 class="text-3xl font-bold mb-4">Sample Page</h1>
+
+  <p class="mb-4">This is a sample page showcasing some basic HTML structure and code highlighting with Tailwind CSS and Highlight.js.</p>
+
+  <section class="mb-8">
+    <h2 class="text-2xl font-bold mb-2">HTML Example</h2>
+    <pre><code class="language-html">
+&lt;div class="container mx-auto bg-white p-4 rounded shadow"&gt;
+  &lt;h3 class="text-xl font-bold mb-2"&gt;Hello World!&lt;/h3&gt;
+  &lt;p&gt;This is some content inside a div element.&lt;/p&gt;
+&lt;/div&gt;
+    </code></pre>
+  </section>
+
+  <section>
+    <h2 class="text-2xl font-bold mb-2">JavaScript Example</h2>
+    <pre><code class="language-javascript">
+function greet(name) {
+  console.log("Hello, " + name + "!");
+}
+
+greet("World");
+    </code></pre>
+  </section>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+</body>
+<!-- </html> -->
