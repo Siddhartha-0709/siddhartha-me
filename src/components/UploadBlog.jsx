@@ -19,11 +19,11 @@ function UploadBlog() {
         e.preventDefault();
 
 
-        if(!title || !password || !description || !thumbnail || !markdown){
+        if (!title || !password || !description || !thumbnail || !markdown) {
             alert("Please fill all the fields");
             return;
         }
-        if(password !== "sidd12345"){
+        if (password !== "sidd12345") {
             alert("Incorrect password");
             return;
         }
@@ -132,7 +132,7 @@ function UploadBlog() {
                             </div>
                             <div className="mb-6">
                                 <label htmlFor="markdown" className="block text-sm font-medium text-gray-400">
-                                    Markdown File
+                                    HTML File
                                 </label>
                                 <input
                                     id="markdown"
