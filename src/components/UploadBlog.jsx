@@ -137,7 +137,7 @@ function UploadBlog() {
                                 <input
                                     id="markdown"
                                     type="file"
-                                    accept=".md"
+                                    accept=".html, .md"
                                     onChange={(e) => setMarkdown(e.target.files[0])}
                                     required
                                     className="mt-1 block w-full text-sm text-gray-50
