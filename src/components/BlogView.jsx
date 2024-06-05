@@ -54,7 +54,7 @@ function BlogView() {
             {loading ? (<Loader />) : (
                 <main className="flex-grow py-12 px-4 md:px-6">
                     <div className="container mx-auto">
-                        <h1 className="text-3xl font-bold mb-8">{blog.title}</h1>
+                        {/* <h1 className="text-3xl font-bold mb-8">{blog.title}</h1> */}
                         {/* <h1 className="text-white text-xl mb-4">
                         {blog.shortDescription}
                     </h1> */}
@@ -63,6 +63,7 @@ function BlogView() {
                                 src={blog.thumbnailUrl}
                                 alt={blog.title}
                                 className="w-full h-auto rounded-lg ml-auto mr-auto"
+                                loading="lazy"
                             />
                         </div>
                         <div className="bg-gray-950 rounded-lg overflow-auto">
