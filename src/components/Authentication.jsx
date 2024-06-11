@@ -42,15 +42,12 @@ const Authentication = () => {
         getRedirectResult(auth)
             .then((result) => {
                 if (result) {
-                    // This gives you a Google Access Token. You can use it to access Google APIs.
                     const credential = GoogleAuthProvider.credentialFromResult(result);
                     const token = credential.accessToken;
-
-                    // The signed-in user info.
                     const user = result.user;
                     console.log("User:", user);
-                    showLoad(false);
                     navigate('/blogs');
+                    showLoad(false);
                 }
             }).catch((error) => {
                 console.error("Error getting redirect result:", error);
