@@ -15,6 +15,10 @@
         {
             "src": "/authentication",
             "dest": "/"
+        },
+        {
+            "src": "/comming-soon",
+            "dest": "/"
         }
         
     ]
