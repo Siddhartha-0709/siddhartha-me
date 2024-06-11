@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getAuth, GoogleAuthProvider, signInWithRedirect, getRedirectResult } from "firebase/auth";
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import Loader from "./Loader";
 // Firebase configuration
 const firebaseConfig = {
@@ -26,36 +26,34 @@ const Authentication = () => {
     const [load, showLoad] = useState(false);
     const signInWithGoogle = async () => {
         showLoad(true);
-        const auth = getAuth();
         try {
-            showLoad(true);
-            await signInWithRedirect(auth, provider);
-        } catch (error) {
-            console.error("Error during sign-in with Google:", error);
-            alert('Authentication Failed');
-        }
-    };
-
-    useEffect(() => {
-        const auth = getAuth();
-        // showLoad(true);
-        getRedirectResult(auth)
-            .then((result) => {
-                showLoad(true);
-                if (result) {
+            const auth = getAuth();
+            await signInWithPopup(auth, provider)
+                .then((result) => {
                     const credential = GoogleAuthProvider.credentialFromResult(result);
                     const token = credential.accessToken;
                     const user = result.user;
-                    console.log("User:", user);
-                    navigate('/blogs');
+                    alert("Authentication Successful");
                     showLoad(false);
-                }
-            }).catch((error) => {
-                console.error("Error getting redirect result:", error);
-                alert('Authentication Failed');
-            });
-        showLoad(false);
-    }, [navigate]);
+                    navigate("/blogs");
+                }).catch((error) => {
+                    showLoad(false);
+                    console.log(error);
+                    alert("Authentication Failed");
+                    // Handle Errors here.
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    // The email of the user's account used.
+                    const email = error.customData.email;
+                    // The AuthCredential type that was used.
+                    const credential = GoogleAuthProvider.credentialFromError(error);
+                    // ...
+                });
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
 
     return (
 
