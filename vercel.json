@@ -11,6 +11,11 @@
         {
             "src": "/blogs-view",
             "dest": "/blogs"
+        },
+        {
+            "src": "/authentication",
+            "dest": "/"
         }
+        
     ]
 }
