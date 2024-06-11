@@ -38,7 +38,7 @@ const Authentication = () => {
 
     useEffect(() => {
         const auth = getAuth();
-        showLoad(true);
+        // showLoad(true);
         getRedirectResult(auth)
             .then((result) => {
                 showLoad(true);
