@@ -134,7 +134,7 @@ function Home() {
                         &lt; Link to My Blog Page /&gt;
                     </a> */}
 
-                    <Link to="/blogs" className="block bg-violet-600 text-white py-2 w-80 rounded font-mono text-lg mt-5 hover:bg-violet-800" style={{ textDecoration: 'none' }}>
+                    <Link to="/authentication" className="block bg-violet-600 text-white py-2 w-80 rounded font-mono text-lg mt-5 hover:bg-violet-800" style={{ textDecoration: 'none' }}>
                         <h1 className="">
                             Check out my Blogs!
                         </h1>

@@ -14,7 +14,7 @@ function Header() {
                     <a className="hover:underline underline-offset-4 hover:text-violet-500 ml-3 mr-3" href="https://github.com/Siddhartha-0709">
                         GitHub
                     </a>
-                    <Link className="hover:underline underline-offset-4 hover:text-violet-500 ml-3 mr-3" to={"/blogs"}>
+                    <Link className="hover:underline underline-offset-4 hover:text-violet-500 ml-3 mr-3" to={"/authentication"}>
                         Blogs
                     </Link>
                     <a className="hover:underline underline-offset-4 hover:text-violet-500 ml-3 mr-3" href="https://www.linkedin.com/in/sidd-myself/">

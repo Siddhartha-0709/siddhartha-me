@@ -13,6 +13,7 @@ import Footer from './components/Footer';
 import BlogView from './components/BlogView';
 import CommingSoon from './components/CommingSoon';
 import ScrollToTop from './components/ScrollToTop';
+import Authentication from './components/Authentication';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         <Route path="/upload" element={<UploadBlog />} />
         <Route path="/blog-view" element={<BlogView />} />
         <Route path="/comming-soon" element={<CommingSoon />} />
+        <Route path="/authentication" element={<Authentication />} />
 
       </Routes>
       <Footer />
