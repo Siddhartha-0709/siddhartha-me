@@ -28,12 +28,12 @@ const Authentication = () => {
         showLoad(true);
         const auth = getAuth();
         try {
+            showLoad(true);
             await signInWithRedirect(auth, provider);
         } catch (error) {
             console.error("Error during sign-in with Google:", error);
             alert('Authentication Failed');
         }
-        showLoad(false);
     };
 
     useEffect(() => {
@@ -41,6 +41,7 @@ const Authentication = () => {
         showLoad(true);
         getRedirectResult(auth)
             .then((result) => {
+                showLoad(true);
                 if (result) {
                     const credential = GoogleAuthProvider.credentialFromResult(result);
                     const token = credential.accessToken;
