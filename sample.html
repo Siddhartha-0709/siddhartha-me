@@ -25,617 +25,84 @@
       </script>
     </head>
     <body
-      class="bg-gray-100 font-sans leading-relaxed tracking-wide flex flex-col"
+      class="bg-gray-100 font-sans leading-relaxed tracking-wide flex flex-col p-5"
     >
-      <div class="container mx-auto p-6">
-        <h1 class="text-4xl font-bold mb-4">
-          Middlewares in Backend Development
-        </h1>
-        <p class="mb-4">
-          Middleware in backend refers to software components that sit between
-          the application's core logic and the underlying operating system or
-          communication protocols. They act as intermediaries, intercepting and
-          processing requests and responses as they flow between the client and
-          the application's main logic.
-        </p>
-
-        <h2 class="text-2xl font-semibold mb-2">Uses of Middleware</h2>
-        <p class="mb-4">
-          The use of middleware can vary depending on the specific requirements
-          of an application, but some common purposes include:
-        </p>
-        <ul class="list-disc pl-6 mb-4">
-          <li>
-            <strong>Authentication and Authorization:</strong> Middleware can
-            handle user authentication and authorization processes. It verifies
-            user credentials and permissions before allowing access to certain
-            resources or functionalities within the application.
-          </li>
-          <li>
-            <strong>Logging and Monitoring:</strong> Middleware can log requests
-            and responses, as well as monitor application performance and
-            health. This helps in debugging issues, tracking usage metrics, and
-            identifying potential bottlenecks or security threats.
-          </li>
-          <li>
-            <strong>Error Handling:</strong> Middleware can intercept errors and
-            exceptions thrown by the application, providing a centralized
-            mechanism for handling and responding to them. This helps in
-            gracefully managing errors and maintaining the stability of the
-            application.
-          </li>
-        </ul>
-        <p class="mb-4">
-          Overall, middleware plays a crucial role in enhancing the
-          functionality, performance, and security of backend applications by
-          providing a flexible and extensible layer between the core logic and
-          the underlying infrastructure.
-        </p>
-
-        <img
-          class="w-full mb-4"
-          src="https://firebasestorage.googleapis.com/v0/b/shaajo-online-jewellery-a2f57.appspot.com/o/blog%2FUntitled.png?alt=media&token=425d562e-e07f-41b7-af6d-44040b8a8cd1"
-          alt="Middleware Illustration"
-        />
-
-        <h2 class="text-2xl font-semibold mb-2">
-          Breaking down parameters of a simple route in Express JS
-        </h2>
-        <pre
-          class="bg-gray-800 text-white p-4 rounded mb-4"
-        ><code class="language-javascript">app.get("/login", error, req, res, next)</code></pre>
-        <p class="mb-4">
-          The code snippet provided is defining a route handler for the HTTP GET
-          request method on the "/login" endpoint. Let's break down the
-          parameters:
-        </p>
-        <ul class="list-disc pl-6 mb-4">
-          <li>
-            <strong>req:</strong> This parameter represents the HTTP request
-            object. It contains information about the incoming request from the
-            client, such as headers, query parameters, request body, and more.
-            Middleware functions and route handlers can access and manipulate
-            this object to extract data from the request or perform validations.
-          </li>
-          <li>
-            <strong>res:</strong> This parameter represents the HTTP response
-            object. It is used to send back a response to the client after
-            processing the request. Middleware functions and route handlers can
-            use methods provided by this object, such as
-            <code class="language-javascript">res.send()</code> or
-            <code>res.json()</code>, to send data, set headers, or set the HTTP
-            status code for the response.
-          </li>
-          <li>
-            <strong>err:</strong> This parameter is typically used to handle
-            errors that occur during the processing of the request. If an error
-            occurs in a middleware function or route handler, it can be passed
-            to the <code>next()</code> function (explained below) along with the
-            error object. Express.js will then skip to the error-handling
-            middleware (if defined) or return an error response to the client.
-          </li>
-          <li>
-            <strong>next:</strong> This parameter is a function that is used to
-            pass control to the next middleware function in the chain.
-            Middleware functions and route handlers can call
-            <code class="language-javascript">next()</code> to delegate
-            processing to the next middleware function or route handler. If
-            <code>next()</code> is called with an error object (<code
-              class="language-javascript"
-              >next(err)</code
-            >), Express.js will skip to the error-handling middleware or return
-            an error response to the client.
-          </li>
-        </ul>
-
-        <div
-          class="mb-4 p-4 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700"
-        >
-          <p>
-            <strong
-              >Remember: For using middleware in our project we use
-              app.use()</strong
-            >
-          </p>
-        </div>
-
-        <h2 class="text-2xl font-semibold mb-2">
-          Understanding various built-in Middleware used in Our Projects
-        </h2>
-        <pre
-          class="bg-gray-800 text-white p-4 rounded mb-4"
-        ><code class="language-javascript">import express from "express";
-import cors from "cors";
-import cookieParser from "cookie-parser";
-
-const app = express();
-app.use(cors({
-    origin: process.env.CORS_ORIGIN,
-    credentials: true
-})); // Generally to set middleware we use 'use' method of express
-// CORS is a mechanism that allows restricted resources on a web page to be requested from another domain outside the domain from which the first resource was served.
-
-app.use(express.json({limit: "16kb"})); // This configuration middleware is used to parse incoming requests with JSON payloads from the body from the forms.
-
-app.use(express.urlencoded({extended: true, limit: "16kb"})); // This configuration informs express that we can get the data from the url encoded forms.
-
-app.use(express.static("public")); // This configuration middleware is used to serve static files from the public directory.
-
-app.use(cookieParser());
-
-export {app}
-</code></pre>
-
-        <ul class="list-disc pl-6 mb-4">
-          <li>
-            <strong>express.json():</strong> This middleware is used to parse
-            incoming request bodies with JSON payloads. When a client sends data
-            to your Express server using JSON format in the request body, this
-            middleware parses the JSON data and exposes it in
-            <code class="language-javascript">req.body</code> property. It
-            enables you to easily work with JSON data within your route
-            handlers.
-          </li>
-          <li>
-            <strong>express.urlencoded():</strong> This middleware is used to
-            parse incoming request bodies with URL-encoded payloads. When a
-            client submits a form with
-            <code class="language-javascript"
-              >application/x-www-form-urlencoded</code
-            >
-            encoding, this middleware parses the data and exposes it in
-            <code class="language-javascript">req.body</code>. It allows you to
-            handle form submissions from HTML forms.
-          </li>
-          <li>
-            <strong>express.static():</strong> This middleware is used to serve
-            static files, such as HTML, CSS, images, and JavaScript files, from
-            a specified directory. It simplifies the process of serving static
-            assets in your Express application.
-          </li>
-          <li>
-            <strong>cookie-parser:</strong> This middleware is used to parse
-            cookies attached to the client's request and populate
-            <code class="language-javascript">req.cookies</code> with an object
-            keyed by the cookie names. It simplifies the handling of cookies in
-            your Express application, allowing you to easily read and set
-            cookies.
-          </li>
-        </ul>
-
-        <div
-          class="mb-4 p-4 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700"
-        >
-          <p>
-            <strong
-              >Remember: Middleware is the process between the request and the
-              response operations used to perform some tasks they are always
-              written in sequences.</strong
-            >
-          </p>
-        </div>
-
-        <h2 class="text-2xl font-semibold mb-2">
-          Utility Files of our Project
-        </h2>
-        <p class="mb-4">
-          A utility file in a backend project is essential because it helps
-          organize and centralize common functionalities and helper methods that
-          are used throughout the application. This approach promotes
-          reusability, maintainability, consistency and cleaner code. By keeping
-          utility functions in a single file, we can avoid code duplication and
-          make our codebase more modular and easier to manage.
-        </p>
-
-        <h3 class="text-xl font-semibold mb-2">asyncHandler.js</h3>
-        <pre
-          class="bg-gray-800 text-white p-4 rounded mb-4"
-        ><code class="language-javascript">const asyncHandler =(func)=> async(req, res, next) =>{
-    try{
-        await func(req, res, next)
-    }catch(error){
-        res.status(500).json({success:false,
-            message:error.message})
-    }
-}
-</code></pre>
-
-        <p class="mb-4">
-          The code provided defines a higher-order function named
-          <code class="language-javascript">asyncHandler</code>. Let's break
-          down what this code does:
-        </p>
-        <ol class="list-decimal pl-6 mb-4">
-          <li>
-            <strong>Function Signature</strong>:
-            <code
-              >const asyncHandler = (func) => async (req, res, next) => { ...
-              }</code
-            >
-            <ul class="list-disc pl-6">
-              <li>
-                <code>asyncHandler</code>: This is the name of the function
-                being defined.
-              </li>
-              <li>
-                <code class="language-javascript">(func)</code>: This is a
-                parameter that the <code>asyncHandler</code> function accepts.
-                It expects another function (<code>func</code>) as an argument.
-              </li>
-              <li>
-                <code>=> async (req, res, next) => { ... }</code>: This part of
-                the function signature indicates that
-                <code>asyncHandler</code> returns another function. This
-                returned function is an asynchronous function that takes three
-                parameters:
-                <code class="language-javascript">req</code> (request),
-                <code class="language-javascript">res</code> (response), and
-                <code class="language-javascript">next</code> (middleware
-                function).
-              </li>
-            </ul>
-          </li>
-          <li>
-            <strong>Error Handling</strong>: Inside the returned function,
-            there's a
-            <code class="language-javascript">try...catch</code> block.
-            <ul class="list-disc pl-6">
-              <li>
-                <code class="language-javascript">try</code>: This block wraps
-                the execution of the <code>func</code> function. It attempts to
-                execute <code>func</code> asynchronously with
-                <code>await</code>.
-              </li>
-              <li>
-                <code class="language-javascript"
-                  >await func(req, res, next)</code
-                >: This line executes the <code>func</code> function
-                asynchronously. It waits for the <code>func</code> function to
-                complete its execution before proceeding to the next step.
-              </li>
-              <li>
-                <code class="language-javascript">catch (error)</code>: If an
-                error occurs during the execution of <code>func</code>, it is
-                caught here.
-              </li>
-              <li>
-                <code class="language-javascript"
-                  >res.status(500).json({ success: false, message: error.message
-                  })</code
-                >: In case of an error, this line sends a JSON response with a
-                500 status code (Internal Server Error). The response contains
-                an object with
-                <code class="language-javascript">success</code> set to
-                <code>false</code> and a
-                <code class="language-javascript">message</code> property
-                containing the error message.
-              </li>
-            </ul>
-          </li>
-          <li>
-            <strong>Return Value</strong>: The
-            <code class="language-javascript">asyncHandler</code> function
-            returns the inner asynchronous function, which has the same
-            signature <code class="language-javascript">(req, res, next)</code>.
-            This returned function is what is typically used as middleware in an
-            Express.js application to handle asynchronous operations.
-          </li>
-        </ol>
-
-        <p class="mb-4">
-          Overall, this
-          <code class="language-javascript">asyncHandler</code> function
-          provides a convenient way to wrap asynchronous route handlers in
-          Express.js, allowing for centralized error handling without the need
-          to write repetitive
-          <code class="language-javascript">try...catch</code> blocks in each
-          route handler.
-        </p>
-
-        <h3 class="text-xl font-semibold mb-2">apiResponse.js</h3>
-        <pre
-          class="bg-gray-800 text-white p-4 rounded mb-4"
-        ><code class="language-javascript">class APIResponse{
-    constructor(
-        statusCode,
-        message = "Success",
-        data
-    ){
-        this.statusCode = statusCode
-        this.message = message
-        this.success = statusCode <400
-        this.data = data
-    }
-}
-</code></pre>
-
-        <p class="mb-4">
-          The code provided defines a higher-order function named
-          <code class="language-javascript">APIResponse</code>. Let's break down
-          what this code does:
-        </p>
-        <ol class="list-decimal pl-6 mb-4">
-          <li>
-            <strong>Constructor</strong>: The
-            <code Add class="language-javascript">constructor</code> method is a
-            special method in JavaScript classes that is called when a new
-            instance of the class is created. In this case, the constructor
-            takes three parameters:
-            <ul class="list-disc pl-6">
-              <li>
-                <code class="language-javascript">statusCode</code>: Represents
-                the HTTP status code of the API response.
-              </li>
-              <li>
-                <code class="language-javascript">message</code>: Represents a
-                descriptive message associated with the response. It defaults to
-                "Success" if not provided.
-              </li>
-              <li>
-                <code class="language-javascript">data</code>: Represents the
-                data payload of the response.
-              </li>
-            </ul>
-          </li>
-          <li>
-            <strong>Instance Properties</strong>:
-            <ul class="list-disc pl-6">
-              <li>
-                <code>this.statusCode</code>: Stores the provided HTTP status
-                code.
-              </li>
-              <li>
-                <code class="language-javascript">this.message</code>: Stores
-                the provided message or defaults to "Success" if not provided.
-              </li>
-              <li>
-                <code class="language-javascript">this.success</code>: Evaluates
-                whether the status code indicates success (less than 400) and
-                assigns <code>true</code> or
-                <code class="language-javascript">false</code> accordingly.
-              </li>
-              <li>
-                <code class="language-javascript">this.data</code>: Stores the
-                provided data payload.
-              </li>
-            </ul>
-          </li>
-          <li>
-            <strong>Purpose</strong>:
-            <p>
-              The purpose of this class appears to be to encapsulate the details
-              of an API response. By using this class, you can create instances
-              representing different API responses with consistent structure and
-              behaviour.
-            </p>
-            <p>
-              <strong>Reusability</strong>: This class can be reused across
-              different parts of your application where API responses need to be
-              constructed. It promotes code reuse and helps maintain consistency
-              in the structure of API responses.
-            </p>
-          </li>
-        </ol>
-
-        <h3 class="text-xl font-semibold mb-2">apiError.js</h3>
-        <pre
-          class="bg-gray-800 text-white p-4 rounded mb-4"
-        ><code class="language-javascript">class APIError extends Error{
-    constructor(
-        statusCode,
-        message="Something went wrong",
-        errors = [],
-        stack = ""
-    ){
-        super(message);
-        this.statusCode = statusCode
-        this.data = null
-        this.message = message
-        this.success = false
-        this.errors = errors
-
-        if(stack){
-            this.stack = stack
-        }
-        else{
-            Error.captureStackTrace(this, this.constructor)
-        }
-    }
-}
-
-export {APIError};
-</code></pre>
-
-        <p class="mb-4">
-          The code provided defines a class named
-          <code class="language-javascript">APIError</code>, which extends the
-          built-in <code class="language-javascript">Error</code> class in
-          JavaScript. Let's dissect what this class does and its potential use:
-        </p>
-        <ol class="list-decimal pl-6 mb-4">
-          <li>
-            <strong>Constructor</strong>: Like the
-            <code class="language-javascript">APIResponse</code> class you
-            previously mentioned, the
-            <code class="language-javascript">APIError</code> class also has a
-            constructor method. It takes four parameters:
-            <ul class="list-disc pl-6">
-              <li>
-                <code class="language-javascript">statusCode</code>: Represents
-                the HTTP status code associated with the error.
-              </li>
-              <li>
-                <code class="language-javascript">message</code>: Represents a
-                descriptive message associated with the error. It defaults to
-                "Something went wrong" if not provided.
-              </li>
-              <li>
-                <code class="language-javascript">errors</code>: Represents
-                additional error information, such as validation errors or
-                details about the error. It defaults to an empty array if not
-                provided.
-              </li>
-              <li>
-                <code class="language-javascript">stack</code>: Represents the
-                stack trace of the error. It defaults to an empty string if not
-                provided.
-              </li>
-            </ul>
-          </li>
-          <li>
-            <code class="language-javascript">super</code> Keyword: Inside the
-            constructor,
-            <code class="language-javascript">super(message)</code> is called.
-            This invokes the constructor of the parent class (<code
-              class="language-javascript"
-              >Error</code
-            >) and passes the
-            <code class="language-javascript">message</code> parameter to it.
-            This sets the error message for the
-            <code class="language-javascript">APIError</code> instance.
-          </li>
-          <li>
-            <strong>Instance Properties</strong>:
-            <ul class="list-disc pl-6">
-              <li>
-                <code class="language-javascript">this.statusCode</code>: Stores
-                the provided HTTP status code.
-              </li>
-              <li>
-                <code class="language-javascript">this.data</code>: Initially
-                set to <code>null</code>. This property could be used to attach
-                additional data related to the error.
-              </li>
-              <li>
-                <code class="language-javascript">this.message</code>: Stores
-                the provided message or defaults to "Something went wrong" if
-                not provided.
-              </li>
-              <li>
-                <code class="language-javascript">this.success</code>: Always
-                set to <code>false</code> since it represents an error response.
-              </li>
-              <li>
-                <code class="language-javascript">this.errors</code>: Stores the
-                provided array of errors or defaults to an empty array if not
-                provided.
-              </li>
-              <li>
-                <code class="language-javascript">this.stack</code>: Stores the
-                provided stack trace or generates a new stack trace using
-                <code class="language-javascript"
-                  >Error.captureStackTrace()</code
-                >
-                if not provided.
-              </li>
-            </ul>
-          </li>
-          <li>
-            <strong>Export</strong>:
-            <p>
-              The <code class="language-javascript">APIError</code> class is
-              exported using the <code>export</code> statement. This makes it
-              available for use in other modules or files within your
-              application.
-            </p>
-          </li>
-        </ol>
-
-        <p class="mb-4">
-          Overall, the <code>APIError</code> class provides a standardized way
-          to represent and handle errors in your API. By extending the built-in
-          <code>Error</code> class, it inherits all of its functionality while
-          adding custom properties specific to your API's error handling needs.
-          This can make error handling more consistent and manageable across
-          your application.
-        </p>
-
-        <h2 class="text-2xl font-semibold mb-2">Need of Utility Functions</h2>
-        <p class="mb-4">
-          Utility functions help in writing cleaner, more maintainable code by
-          abstracting common patterns and providing consistent error handling
-          and response formatting across your application's API endpoints. They
-          enhance readability, reduce duplication, and improve the
-          maintainability of your codebase.
-        </p>
-
-        <ol class="list-decimal pl-6 mb-4">
-          <li>
-            <code class="language-javascript">asyncHandler</code>: This utility
-            function is used to handle asynchronous route handlers in
-            Express.js. In an Express.js application, route handlers can be
-            asynchronous (e.g., performing database queries, making HTTP
-            requests). Using <code>asyncHandler</code>, you can avoid repetitive
-            <code class="language-javascript">try...catch</code> blocks in each
-            route handler by wrapping them with
-            <code class="language-javascript">asyncHandler</code>.
-            <pre
-              class="bg-gray-800 text-white p-4 rounded mt-4"
-            ><code class="language-javascript">app.get('/api/resource', asyncHandler(async (req, res, next) => {
-    // Asynchronous operations, such as querying a database
-    const data = await Resource.find();
-    res.json(data);
-}));
-</code></pre>
-            <p>
-              Here,
-              <code class="language-javascript">asyncHandler</code> ensures that
-              any errors thrown inside the route handler are caught and passed
-              to Express's error-handling middleware.
-            </p>
-          </li>
-          <li>
-            <code class="language-javascript">APIResponse</code>: This class is
-            used to standardize the structure of API responses in your
-            application. Whenever your API needs to send a response, you can use
-            <code>APIResponse</code> to create instances representing different
-            types of responses (e.g., success response, error response).
-            <pre
-              class="bg-gray-800 text-white p-4 rounded mt-4"
-            ><code class="language-javascript">const successResponse = new APIResponse(200, "Resource found", { id: 1, name: "John" });
-const errorResponse = new APIResponse(404, "Resource not found");
-</code></pre>
-            <p>
-              These instances can then be sent as JSON responses in your
-              Express.js route handlers.
-            </p>
-          </li>
-          <li>
-            <code>APIError</code>: Similar to
-            <code class="language-javascript">APIResponse</code>, this class is
-            used to represent and handle errors in your API. Whenever an error
-            occurs in your application, you can create an instance of
-            <code>APIError</code> and send it as a JSON response to the client.
-            <pre
-              class="bg-gray-800 text-white p-4 rounded mt-4"
-            ><code class="language-javascript">app.get('/api/resource/:id', async (req, res, next) => {
-    try {
-        const resource = await Resource.findById(req.params.id);
-        if (!resource) {
-            throw new APIError(404, "Resource not found");
-        }
-        res.json(resource);
-    } catch (error) {
-        next(error); // Pass the error to Express's error-handling middleware
-    }
-});
-</code></pre>
-            <p>
-              In this example, if the requested resource is not found, an
-              <code>APIError</code> instance with a 404 status code and a custom
-              message is thrown and passed to Express's error-handling
-              middleware.
-            </p>
-          </li>
-        </ol>
-        <p class="mb-4">
-          Overall, these utilities help in writing cleaner, more maintainable
-          code by abstracting common patterns and providing consistent error
-          handling and response formatting across your application's API
-          endpoints. They enhance readability, reduce duplication, and improve
-          the maintainability of your codebase.
-        </p>
+      <div>
       </div>
+      <h1 class="text-2xl mt-3 mb-1 font-bold">Operating System</h1>
+      <p class="text-xl ">An operating system is a system software that acts as an interface between the user and hardwares of a computer and reduces the internal complexity.</p>
+      <p class="text-xl ">The main functionalitites of an operating system are as follows:</p>
+      <ul class="text-xl list-decimal list-inside font-bold ml-5">
+        <li>Process Management</li>
+        <li>Memory Management</li>
+        <li>File Management</li>
+        <li>Input/Output Management</li>
+        <li>Security Management</li>
+      </ul>
+      <h1 class="text-2xl mt-3 mb-1 font-bold">Program v/s Process</h1>
+      <p class="text-xl ">A program is a set of instruction that is given to the computer to execute a specific task.</p>
+      <p class="text-xl ">A program under execution is called a process.</p>
+      <h1 class="text-2xl mt-3 mb-1 font-bold">Stored Program Architecture</h1>
+      <p class="text-xl ">A stored program architecture is a type of computer design where programs are initially stored on a hard disk, which offers substantial storage capacity but slower access speeds. During execution, these programs are transferred to RAM, which, although having less storage capacity, provides much faster access speeds.</p>
+      <p class="text-xl ">The schedulers involed in this are the following:</p>
+      <ul class="text-xl ml-5">
+        <li><strong>1. Long-term schedulers-</strong> They determine which processes, from a larger pool, will be loaded into RAM for execution by the CPU.</li>
+        <li><strong>2. Short-term schedulers-</strong>They determine which one process, out of the multiple processes in RAM, will be executed first by the CPU.</li>
+      </ul>
+      <img src="https://firebasestorage.googleapis.com/v0/b/siddhartha-dev.appspot.com/o/operating%20system%20blog%2Fdiagram-export-12-06-2024-19_46_40.png?alt=media&token=38b26285-b5e5-4f74-a992-4bfee818aaaf" alt="" class=" ml-auto mr-auto mt-3 mb-3 rounded-lg">
+      <h1 class="text-2xl mt-3 mb-1 font-bold">The various types of Operating System</h1>
+      <ol class="text-xl">
+        <li><strong>1. Serial Processing OS- </strong>In this type of OS the jobs are executed in a sequential manner in the order of First Come First Serve. In this the jobs are submited in the form of punch cards to a program counter which executes all instructions.</li>
+        <li><strong>2. Batch Processing OS- </strong>In this similar types of jobs are grouped together and executed in a batch manner. There is a concept of resident monitor which manages the automatic sequencing of jobs.</li>
+        <li><strong>3. Multi-Programming OS- </strong>In this type of OS we can execute multiple programs on the system at the same time. In this the CPU is never idle and it ensures maximum CPU utlization and maximum throughput.
+        <br>
+        In this OS if one process other goes I/O operation the other process undergoes execution by the CPU.
+        </li>
+        <li><strong>4. Time Sharing OS- </strong>In time-sharing OS a process is alloted a certain period of time before which it has to complete its execution and after which it can be executed again. This short period of time is called Quantum Time.</li>
+        <li><strong>5. Network OS- </strong> This types of OS connects multiple devices or computers on the network and allows them to share resources.</li>
+        <li><strong>6. Distributed OS- </strong>In this the OS is separated into various sections which are loaded into multiple machines rather than a single machine.</li>
+        <li><strong>7. Multi-Processor OS- </strong>In this type of OS the computer has multiple processors which can execute multiple programs at the same time.</li>
+        <li><strong>8. Real Time OS- </strong>In this OS the process have to be executed before a certain deadline. It is of the following types,</li>
+        <ul class="text-xl ml-5 mt-3">
+          <li><strong>1. Hard RTOS-</strong> In this if the process completes after a given deadline the entire system crash. They are used in aircrafts and missile systems.</li>
+          <li><strong>2. Firm RTOS-</strong> In this if the process completes after a given deadline the output may not be useful but the result may be useful. For Example- Video Conference</li>
+          <li><strong>3. Soft RTOS-</strong> In this if the process completes after a given deadline the importance of the output decreses. For Example- Internet browsing.</li>
+        </ul>
+      </ol>
+      <h1 class="text-2xl mt-3 mb-1 font-bold">Different architectures of Operating Systems</h1>
+      <ol class="text-xl">
+        <li><strong>1. Layered Structure-</strong>In this the operating system is divided into several modules or layer. The beauty of this syetem is that if one if the modules fails we can repair only that one.
+        <img src="https://firebasestorage.googleapis.com/v0/b/siddhartha-dev.appspot.com/o/operating%20system%20blog%2Fdiagram-export-13-06-2024-01_25_07.png?alt=media&token=fcf2c371-016f-47c1-b674-47d85b063372" alt="" class=" ml-auto mr-auto mt-3 mb-3 rounded-lg">
+        </li>
+        <li><strong>2. Kernel OS-</strong>The kernel OS can be further be classified into two categories,
+        <ul class="text-xl ml-5 mt-3">
+          <li><strong>1. Monolithic Kernel-</strong> In this the operating system manages the system resources between the application and hardware but the user services and kernel services are implemented in the same address space.This approach makes the operating system very fast and due to this the size of the kernel increases but if one component stops working the whole system will crash.
+          <img src="https://firebasestorage.googleapis.com/v0/b/siddhartha-dev.appspot.com/o/operating%20system%20blog%2Fdiagram-export-13-06-2024-01_37_50.png?alt=media&token=13c8d4b5-5906-452d-a7c8-b9a7b142b9e2" alt="" class=" ml-auto mr-auto mt-3 mb-3 rounded-lg">
+          </li>
+          <li><strong>2. Micro-Kernel-</strong> In this the user services and kernel services are implemented in different address spaces. The user service is kept in user space and kernel service is kept in kernel space. This approach makes the operating system slow and due to this the size of the kernel is also less. <br>On the other hand if one component stops working the whole system will not crash as the user service and kernel service is isolated. The interaction between the client program and the services running in user address space is is establised through message passing which makes it slow.
+          <img src="https://firebasestorage.googleapis.com/v0/b/siddhartha-dev.appspot.com/o/operating%20system%20blog%2Fdiagram-export-13-06-2024-01_43_54.png?alt=media&token=ea632b1c-1b49-4802-9ff2-39d79e1c7229" alt="" class=" ml-auto mr-auto mt-3 mb-3 rounded-lg">
+        </li>
+        <li><strong>3. Virtual Machines:</strong> A virtual machine (VM) is a software-based emulation of a physical computer that allows a single physical machine to operate as multiple virtual machines. There are different types of virtual machines, including:
+            <ul class="text-xl ml-5 mt-3">
+                <li><strong>1. Type-1 VM or Hypervisor:</strong> This type of VM runs directly on the host's hardware to control the hardware and manage guest operating systems. Because it does not require a base operating system, it is often called a "bare-metal" hypervisor. Type-1 hypervisors are commonly used in enterprise environments for their efficiency and performance. Examples include VMware ESXi, Microsoft Hyper-V, and Xen.
+                <img src="https://firebasestorage.googleapis.com/v0/b/siddhartha-dev.appspot.com/o/operating%20system%20blog%2Fdiagram-export-13-06-2024-01_49_08.png?alt=media&token=269f5341-9909-4e19-8a4e-a299a00b2405" alt="" class=" ml-auto mr-auto mt-3 mb-3 rounded-lg">
+                </li>
+                <li><strong>2. Type-2 VM or Hosted Hypervisor:</strong> This type of VM runs on a conventional operating system as an application. The host operating system manages the hardware, and the hypervisor provides virtualization services. Type-2 hypervisors are typically used in desktop and development environments where convenience and ease of use are prioritized over performance. Examples include VMware Workstation, Oracle VM VirtualBox, and Parallels Desktop.
+                <img src="https://firebasestorage.googleapis.com/v0/b/siddhartha-dev.appspot.com/o/operating%20system%20blog%2Fdiagram-export-13-06-2024-01_51_43.png?alt=media&token=1551a9f7-086e-475b-bb03-3f4e68c52007" alt="" class=" ml-auto mr-auto mt-3 mb-3 rounded-lg">
+                </li>
+            </ul>
+        </li>
+      </ol>
+      <p class="text-xl mt-3 mb-1">With this comprehensive overview, you now have a solid foundation for your understanding of operating systems. Throughout this discussion, we've delved into what operating systems are, explored the various types of operating systems available, and examined the roles and functionalities of kernels and virtual machines.
+        <br>
+        To recap, we've learned that an operating system is a crucial software that manages computer hardware and software resources, providing essential services for computer programs. We've also distinguished between different types of operating systems, such as batch operating systems, time-sharing systems, distributed systems, and real-time systems, each serving unique purposes and environments.
+        Furthermore, we discussed kernels, the core component of an operating system that manages system resources and communication between hardware and software. We also touched upon virtual machines, which allow multiple operating systems to run concurrently on a single physical machine, providing flexibility and efficient resource utilization.
+        <br>
+        This is just the beginning of your journey into the world of operating systems. There's so much more to explore and understand, from advanced concepts like process management, memory management, and file systems to contemporary topics such as containerization and cloud computing.
+      </p>
+      <h1 class="text-lg italic font-bold mt-5">That's All About Introduction to Operating Systems</h1>
+      <h1 class="text-lg italic">Thanks for reading!!</h1>
+      <h1 class="text-lg italic">Crafted with ❤️ by Siddhartha</h1>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js"></script>
       <script>
         hljs.initHighlightingOnLoad();
