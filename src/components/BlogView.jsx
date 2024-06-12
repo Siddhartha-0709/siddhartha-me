@@ -4,6 +4,7 @@ import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import hljs from 'highlight.js'; // Ensure you have highlight.js installed
 import Loader from './Loader';
+import { Analytics } from "@vercel/analytics/react"
 
 function BlogView() {
     const location = useLocation();
@@ -53,6 +54,7 @@ function BlogView() {
         <div className="min-h-screen flex flex-col bg-gray-950 text-white">
             {loading ? (<Loader />) : (
                 <main className="flex-grow py-12 px-4 md:px-6">
+                    <Analytics />
                     <div className="container mx-auto">
                         {/* <h1 className="text-3xl font-bold mb-8">{blog.title}</h1> */}
                         {/* <h1 className="text-white text-xl mb-4">

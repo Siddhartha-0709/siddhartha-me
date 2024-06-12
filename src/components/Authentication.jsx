@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { Analytics } from "@vercel/analytics/react"
+
 import Loader from "./Loader";
 // Firebase configuration
 const firebaseConfig = {
@@ -63,6 +65,7 @@ const Authentication = () => {
             <div className="h-3/4 max-w-screen-xl m-0 sm:m-10 bg-black shadow sm:rounded-lg flex justify-center flex-1 ">
                 <div className="lg:w-1/2 xl:w-5/12 p-6 sm:p-12 bg-gray-900 rounded-lg text-white">
                     <div></div>
+                    <Analytics />
                     <div className="mt-12 flex flex-col items-center ">
                     <img
                         className="w-full h-full object-cover rounded-lg mb-10"

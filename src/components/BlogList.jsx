@@ -5,7 +5,7 @@ import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Loader from './Loader';
-
+import { Analytics } from "@vercel/analytics/react"
 function BlogList() {
   const [blogs, setBlogs] = useState([]);
   const navigate = useNavigate();
@@ -35,6 +35,7 @@ function BlogList() {
         <div className="flex flex-col min-h-screen bg-gray-950 text-white">
           <header className="py-12 px-4 md:px-6">
             <div className="container mx-auto">
+              <Analytics />
               <h1 className="text-4xl font-bold mb-8">My Blog - Thoughts, Stories, and Insights</h1>
               <h1 className="text-xl mb-8">
                 Hello and welcome to my blog!

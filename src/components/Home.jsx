@@ -3,10 +3,12 @@
 
 import React from "react";
 import { Link } from "react-router-dom";
+import { Analytics } from "@vercel/analytics/react"
 
 function Home() {
     return (
         <body className="bg-gray-950">
+            <Analytics />
             <div className="grid grid-cols-2 gap-4 font-mono">
                 <div
                     className="col-span-1 bg-gray-950"
