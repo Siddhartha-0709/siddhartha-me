@@ -1,645 +1,135 @@
-<!DOCTYPE html>
-<html lang="en">
-  <html lang="en">
-    <head>
-      <meta charset="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>Sample Page with Code Highlighting</title>
-      <link
-        href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
-        rel="stylesheet"
-      />
-      <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/tomorrow.min.css"> -->
-      <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css"> -->
-      <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css"
-      />
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+/* eslint-disable no-unused-vars */
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import Loader from "./Loader";
+// Firebase configuration
+const firebaseConfig = {
+    apiKey: "AIzaSyBd-LPewzqlRVMt3t_zJL31HCCij1UP2YM",
+    authDomain: "siddhartha-dev.firebaseapp.com",
+    projectId: "siddhartha-dev",
+    storageBucket: "siddhartha-dev.appspot.com",
+    messagingSenderId: "582920351932",
+    appId: "1:582920351932:web:38ae05c963ab7fc586a0b9",
+    measurementId: "G-K0DKDJHWNZ"
+};
 
-      <!-- and it's easy to individually load additional languages -->
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+const provider = new GoogleAuthProvider();
 
-      <script>
-        hljs.highlightAll();
-      </script>
-    </head>
-    <body
-      class="bg-gray-100 font-sans leading-relaxed tracking-wide flex flex-col"
-    >
-      <div class="container mx-auto p-6">
-        <h1 class="text-4xl font-bold mb-4">
-          Middlewares in Backend Development
-        </h1>
-        <p class="mb-4">
-          Middleware in backend refers to software components that sit between
-          the application's core logic and the underlying operating system or
-          communication protocols. They act as intermediaries, intercepting and
-          processing requests and responses as they flow between the client and
-          the application's main logic.
-        </p>
-
-        <h2 class="text-2xl font-semibold mb-2">Uses of Middleware</h2>
-        <p class="mb-4">
-          The use of middleware can vary depending on the specific requirements
-          of an application, but some common purposes include:
-        </p>
-        <ul class="list-disc pl-6 mb-4">
-          <li>
-            <strong>Authentication and Authorization:</strong> Middleware can
-            handle user authentication and authorization processes. It verifies
-            user credentials and permissions before allowing access to certain
-            resources or functionalities within the application.
-          </li>
-          <li>
-            <strong>Logging and Monitoring:</strong> Middleware can log requests
-            and responses, as well as monitor application performance and
-            health. This helps in debugging issues, tracking usage metrics, and
-            identifying potential bottlenecks or security threats.
-          </li>
-          <li>
-            <strong>Error Handling:</strong> Middleware can intercept errors and
-            exceptions thrown by the application, providing a centralized
-            mechanism for handling and responding to them. This helps in
-            gracefully managing errors and maintaining the stability of the
-            application.
-          </li>
-        </ul>
-        <p class="mb-4">
-          Overall, middleware plays a crucial role in enhancing the
-          functionality, performance, and security of backend applications by
-          providing a flexible and extensible layer between the core logic and
-          the underlying infrastructure.
-        </p>
-
-        <img
-          class="w-full mb-4"
-          src="https://firebasestorage.googleapis.com/v0/b/shaajo-online-jewellery-a2f57.appspot.com/o/blog%2FUntitled.png?alt=media&token=425d562e-e07f-41b7-af6d-44040b8a8cd1"
-          alt="Middleware Illustration"
-        />
-
-        <h2 class="text-2xl font-semibold mb-2">
-          Breaking down parameters of a simple route in Express JS
-        </h2>
-        <pre
-          class="bg-gray-800 text-white p-4 rounded mb-4"
-        ><code class="language-javascript">app.get("/login", error, req, res, next)</code></pre>
-        <p class="mb-4">
-          The code snippet provided is defining a route handler for the HTTP GET
-          request method on the "/login" endpoint. Let's break down the
-          parameters:
-        </p>
-        <ul class="list-disc pl-6 mb-4">
-          <li>
-            <strong>req:</strong> This parameter represents the HTTP request
-            object. It contains information about the incoming request from the
-            client, such as headers, query parameters, request body, and more.
-            Middleware functions and route handlers can access and manipulate
-            this object to extract data from the request or perform validations.
-          </li>
-          <li>
-            <strong>res:</strong> This parameter represents the HTTP response
-            object. It is used to send back a response to the client after
-            processing the request. Middleware functions and route handlers can
-            use methods provided by this object, such as
-            <code class="language-javascript">res.send()</code> or
-            <code>res.json()</code>, to send data, set headers, or set the HTTP
-            status code for the response.
-          </li>
-          <li>
-            <strong>err:</strong> This parameter is typically used to handle
-            errors that occur during the processing of the request. If an error
-            occurs in a middleware function or route handler, it can be passed
-            to the <code>next()</code> function (explained below) along with the
-            error object. Express.js will then skip to the error-handling
-            middleware (if defined) or return an error response to the client.
-          </li>
-          <li>
-            <strong>next:</strong> This parameter is a function that is used to
-            pass control to the next middleware function in the chain.
-            Middleware functions and route handlers can call
-            <code class="language-javascript">next()</code> to delegate
-            processing to the next middleware function or route handler. If
-            <code>next()</code> is called with an error object (<code
-              class="language-javascript"
-              >next(err)</code
-            >), Express.js will skip to the error-handling middleware or return
-            an error response to the client.
-          </li>
-        </ul>
-
-        <div
-          class="mb-4 p-4 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700"
-        >
-          <p>
-            <strong
-              >Remember: For using middleware in our project we use
-              app.use()</strong
-            >
-          </p>
-        </div>
-
-        <h2 class="text-2xl font-semibold mb-2">
-          Understanding various built-in Middleware used in Our Projects
-        </h2>
-        <pre
-          class="bg-gray-800 text-white p-4 rounded mb-4"
-        ><code class="language-javascript">import express from "express";
-import cors from "cors";
-import cookieParser from "cookie-parser";
-
-const app = express();
-app.use(cors({
-    origin: process.env.CORS_ORIGIN,
-    credentials: true
-})); // Generally to set middleware we use 'use' method of express
-// CORS is a mechanism that allows restricted resources on a web page to be requested from another domain outside the domain from which the first resource was served.
-
-app.use(express.json({limit: "16kb"})); // This configuration middleware is used to parse incoming requests with JSON payloads from the body from the forms.
-
-app.use(express.urlencoded({extended: true, limit: "16kb"})); // This configuration informs express that we can get the data from the url encoded forms.
-
-app.use(express.static("public")); // This configuration middleware is used to serve static files from the public directory.
-
-app.use(cookieParser());
-
-export {app}
-</code></pre>
-
-        <ul class="list-disc pl-6 mb-4">
-          <li>
-            <strong>express.json():</strong> This middleware is used to parse
-            incoming request bodies with JSON payloads. When a client sends data
-            to your Express server using JSON format in the request body, this
-            middleware parses the JSON data and exposes it in
-            <code class="language-javascript">req.body</code> property. It
-            enables you to easily work with JSON data within your route
-            handlers.
-          </li>
-          <li>
-            <strong>express.urlencoded():</strong> This middleware is used to
-            parse incoming request bodies with URL-encoded payloads. When a
-            client submits a form with
-            <code class="language-javascript"
-              >application/x-www-form-urlencoded</code
-            >
-            encoding, this middleware parses the data and exposes it in
-            <code class="language-javascript">req.body</code>. It allows you to
-            handle form submissions from HTML forms.
-          </li>
-          <li>
-            <strong>express.static():</strong> This middleware is used to serve
-            static files, such as HTML, CSS, images, and JavaScript files, from
-            a specified directory. It simplifies the process of serving static
-            assets in your Express application.
-          </li>
-          <li>
-            <strong>cookie-parser:</strong> This middleware is used to parse
-            cookies attached to the client's request and populate
-            <code class="language-javascript">req.cookies</code> with an object
-            keyed by the cookie names. It simplifies the handling of cookies in
-            your Express application, allowing you to easily read and set
-            cookies.
-          </li>
-        </ul>
-
-        <div
-          class="mb-4 p-4 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700"
-        >
-          <p>
-            <strong
-              >Remember: Middleware is the process between the request and the
-              response operations used to perform some tasks they are always
-              written in sequences.</strong
-            >
-          </p>
-        </div>
-
-        <h2 class="text-2xl font-semibold mb-2">
-          Utility Files of our Project
-        </h2>
-        <p class="mb-4">
-          A utility file in a backend project is essential because it helps
-          organize and centralize common functionalities and helper methods that
-          are used throughout the application. This approach promotes
-          reusability, maintainability, consistency and cleaner code. By keeping
-          utility functions in a single file, we can avoid code duplication and
-          make our codebase more modular and easier to manage.
-        </p>
-
-        <h3 class="text-xl font-semibold mb-2">asyncHandler.js</h3>
-        <pre
-          class="bg-gray-800 text-white p-4 rounded mb-4"
-        ><code class="language-javascript">const asyncHandler =(func)=> async(req, res, next) =>{
-    try{
-        await func(req, res, next)
-    }catch(error){
-        res.status(500).json({success:false,
-            message:error.message})
-    }
-}
-</code></pre>
-
-        <p class="mb-4">
-          The code provided defines a higher-order function named
-          <code class="language-javascript">asyncHandler</code>. Let's break
-          down what this code does:
-        </p>
-        <ol class="list-decimal pl-6 mb-4">
-          <li>
-            <strong>Function Signature</strong>:
-            <code
-              >const asyncHandler = (func) => async (req, res, next) => { ...
-              }</code
-            >
-            <ul class="list-disc pl-6">
-              <li>
-                <code>asyncHandler</code>: This is the name of the function
-                being defined.
-              </li>
-              <li>
-                <code class="language-javascript">(func)</code>: This is a
-                parameter that the <code>asyncHandler</code> function accepts.
-                It expects another function (<code>func</code>) as an argument.
-              </li>
-              <li>
-                <code>=> async (req, res, next) => { ... }</code>: This part of
-                the function signature indicates that
-                <code>asyncHandler</code> returns another function. This
-                returned function is an asynchronous function that takes three
-                parameters:
-                <code class="language-javascript">req</code> (request),
-                <code class="language-javascript">res</code> (response), and
-                <code class="language-javascript">next</code> (middleware
-                function).
-              </li>
-            </ul>
-          </li>
-          <li>
-            <strong>Error Handling</strong>: Inside the returned function,
-            there's a
-            <code class="language-javascript">try...catch</code> block.
-            <ul class="list-disc pl-6">
-              <li>
-                <code class="language-javascript">try</code>: This block wraps
-                the execution of the <code>func</code> function. It attempts to
-                execute <code>func</code> asynchronously with
-                <code>await</code>.
-              </li>
-              <li>
-                <code class="language-javascript"
-                  >await func(req, res, next)</code
-                >: This line executes the <code>func</code> function
-                asynchronously. It waits for the <code>func</code> function to
-                complete its execution before proceeding to the next step.
-              </li>
-              <li>
-                <code class="language-javascript">catch (error)</code>: If an
-                error occurs during the execution of <code>func</code>, it is
-                caught here.
-              </li>
-              <li>
-                <code class="language-javascript"
-                  >res.status(500).json({ success: false, message: error.message
-                  })</code
-                >: In case of an error, this line sends a JSON response with a
-                500 status code (Internal Server Error). The response contains
-                an object with
-                <code class="language-javascript">success</code> set to
-                <code>false</code> and a
-                <code class="language-javascript">message</code> property
-                containing the error message.
-              </li>
-            </ul>
-          </li>
-          <li>
-            <strong>Return Value</strong>: The
-            <code class="language-javascript">asyncHandler</code> function
-            returns the inner asynchronous function, which has the same
-            signature <code class="language-javascript">(req, res, next)</code>.
-            This returned function is what is typically used as middleware in an
-            Express.js application to handle asynchronous operations.
-          </li>
-        </ol>
-
-        <p class="mb-4">
-          Overall, this
-          <code class="language-javascript">asyncHandler</code> function
-          provides a convenient way to wrap asynchronous route handlers in
-          Express.js, allowing for centralized error handling without the need
-          to write repetitive
-          <code class="language-javascript">try...catch</code> blocks in each
-          route handler.
-        </p>
-
-        <h3 class="text-xl font-semibold mb-2">apiResponse.js</h3>
-        <pre
-          class="bg-gray-800 text-white p-4 rounded mb-4"
-        ><code class="language-javascript">class APIResponse{
-    constructor(
-        statusCode,
-        message = "Success",
-        data
-    ){
-        this.statusCode = statusCode
-        this.message = message
-        this.success = statusCode <400
-        this.data = data
-    }
-}
-</code></pre>
-
-        <p class="mb-4">
-          The code provided defines a higher-order function named
-          <code class="language-javascript">APIResponse</code>. Let's break down
-          what this code does:
-        </p>
-        <ol class="list-decimal pl-6 mb-4">
-          <li>
-            <strong>Constructor</strong>: The
-            <code Add class="language-javascript">constructor</code> method is a
-            special method in JavaScript classes that is called when a new
-            instance of the class is created. In this case, the constructor
-            takes three parameters:
-            <ul class="list-disc pl-6">
-              <li>
-                <code class="language-javascript">statusCode</code>: Represents
-                the HTTP status code of the API response.
-              </li>
-              <li>
-                <code class="language-javascript">message</code>: Represents a
-                descriptive message associated with the response. It defaults to
-                "Success" if not provided.
-              </li>
-              <li>
-                <code class="language-javascript">data</code>: Represents the
-                data payload of the response.
-              </li>
-            </ul>
-          </li>
-          <li>
-            <strong>Instance Properties</strong>:
-            <ul class="list-disc pl-6">
-              <li>
-                <code>this.statusCode</code>: Stores the provided HTTP status
-                code.
-              </li>
-              <li>
-                <code class="language-javascript">this.message</code>: Stores
-                the provided message or defaults to "Success" if not provided.
-              </li>
-              <li>
-                <code class="language-javascript">this.success</code>: Evaluates
-                whether the status code indicates success (less than 400) and
-                assigns <code>true</code> or
-                <code class="language-javascript">false</code> accordingly.
-              </li>
-              <li>
-                <code class="language-javascript">this.data</code>: Stores the
-                provided data payload.
-              </li>
-            </ul>
-          </li>
-          <li>
-            <strong>Purpose</strong>:
-            <p>
-              The purpose of this class appears to be to encapsulate the details
-              of an API response. By using this class, you can create instances
-              representing different API responses with consistent structure and
-              behaviour.
-            </p>
-            <p>
-              <strong>Reusability</strong>: This class can be reused across
-              different parts of your application where API responses need to be
-              constructed. It promotes code reuse and helps maintain consistency
-              in the structure of API responses.
-            </p>
-          </li>
-        </ol>
-
-        <h3 class="text-xl font-semibold mb-2">apiError.js</h3>
-        <pre
-          class="bg-gray-800 text-white p-4 rounded mb-4"
-        ><code class="language-javascript">class APIError extends Error{
-    constructor(
-        statusCode,
-        message="Something went wrong",
-        errors = [],
-        stack = ""
-    ){
-        super(message);
-        this.statusCode = statusCode
-        this.data = null
-        this.message = message
-        this.success = false
-        this.errors = errors
-
-        if(stack){
-            this.stack = stack
+const Authentication = () => {
+    const navigate = useNavigate();
+    const [load, showLoad] = useState(false);
+    const signInWithGoogle = async () => {
+        showLoad(true);
+        try {
+            const auth = getAuth();
+            await signInWithPopup(auth, provider)
+                .then((result) => {
+                    const credential = GoogleAuthProvider.credentialFromResult(result);
+                    const token = credential.accessToken;
+                    const user = result.user;
+                    alert("Authentication Successful");
+                    showLoad(false);
+                    navigate("/blogs");
+                }).catch((error) => {
+                    showLoad(false);
+                    console.log(error);
+                    alert("Authentication Failed");
+                    // Handle Errors here.
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    // The email of the user's account used.
+                    const email = error.customData.email;
+                    // The AuthCredential type that was used.
+                    const credential = GoogleAuthProvider.credentialFromError(error);
+                    // ...
+                });
+        } catch (error) {
+            console.log(error);
         }
-        else{
-            Error.captureStackTrace(this, this.constructor)
-        }
-    }
-}
+    };
 
-export {APIError};
-</code></pre>
 
-        <p class="mb-4">
-          The code provided defines a class named
-          <code class="language-javascript">APIError</code>, which extends the
-          built-in <code class="language-javascript">Error</code> class in
-          JavaScript. Let's dissect what this class does and its potential use:
-        </p>
-        <ol class="list-decimal pl-6 mb-4">
-          <li>
-            <strong>Constructor</strong>: Like the
-            <code class="language-javascript">APIResponse</code> class you
-            previously mentioned, the
-            <code class="language-javascript">APIError</code> class also has a
-            constructor method. It takes four parameters:
-            <ul class="list-disc pl-6">
-              <li>
-                <code class="language-javascript">statusCode</code>: Represents
-                the HTTP status code associated with the error.
-              </li>
-              <li>
-                <code class="language-javascript">message</code>: Represents a
-                descriptive message associated with the error. It defaults to
-                "Something went wrong" if not provided.
-              </li>
-              <li>
-                <code class="language-javascript">errors</code>: Represents
-                additional error information, such as validation errors or
-                details about the error. It defaults to an empty array if not
-                provided.
-              </li>
-              <li>
-                <code class="language-javascript">stack</code>: Represents the
-                stack trace of the error. It defaults to an empty string if not
-                provided.
-              </li>
-            </ul>
-          </li>
-          <li>
-            <code class="language-javascript">super</code> Keyword: Inside the
-            constructor,
-            <code class="language-javascript">super(message)</code> is called.
-            This invokes the constructor of the parent class (<code
-              class="language-javascript"
-              >Error</code
-            >) and passes the
-            <code class="language-javascript">message</code> parameter to it.
-            This sets the error message for the
-            <code class="language-javascript">APIError</code> instance.
-          </li>
-          <li>
-            <strong>Instance Properties</strong>:
-            <ul class="list-disc pl-6">
-              <li>
-                <code class="language-javascript">this.statusCode</code>: Stores
-                the provided HTTP status code.
-              </li>
-              <li>
-                <code class="language-javascript">this.data</code>: Initially
-                set to <code>null</code>. This property could be used to attach
-                additional data related to the error.
-              </li>
-              <li>
-                <code class="language-javascript">this.message</code>: Stores
-                the provided message or defaults to "Something went wrong" if
-                not provided.
-              </li>
-              <li>
-                <code class="language-javascript">this.success</code>: Always
-                set to <code>false</code> since it represents an error response.
-              </li>
-              <li>
-                <code class="language-javascript">this.errors</code>: Stores the
-                provided array of errors or defaults to an empty array if not
-                provided.
-              </li>
-              <li>
-                <code class="language-javascript">this.stack</code>: Stores the
-                provided stack trace or generates a new stack trace using
-                <code class="language-javascript"
-                  >Error.captureStackTrace()</code
-                >
-                if not provided.
-              </li>
-            </ul>
-          </li>
-          <li>
-            <strong>Export</strong>:
-            <p>
-              The <code class="language-javascript">APIError</code> class is
-              exported using the <code>export</code> statement. This makes it
-              available for use in other modules or files within your
-              application.
-            </p>
-          </li>
-        </ol>
+    return (
 
-        <p class="mb-4">
-          Overall, the <code>APIError</code> class provides a standardized way
-          to represent and handle errors in your API. By extending the built-in
-          <code>Error</code> class, it inherits all of its functionality while
-          adding custom properties specific to your API's error handling needs.
-          This can make error handling more consistent and manageable across
-          your application.
-        </p>
+        load ? (<>
+            <Loader />
+        </>) : (<div className="min-h-screen bg-gray-950 text-gray-900 flex justify-center items-center">
+            <div className="h-3/4 max-w-screen-xl m-0 sm:m-10 bg-black shadow sm:rounded-lg flex justify-center flex-1 ">
+                <div className="lg:w-1/2 xl:w-5/12 p-6 sm:p-12 bg-gray-900 rounded-lg text-white">
+                    <div></div>
+                    <div className="mt-12 flex flex-col items-center ">
+                    <img
+                        className="w-full h-full object-cover rounded-lg mb-10"
+                        src="https://images.squarespace-cdn.com/content/v1/63242d928945ce4bbfeea031/6d07bd1e-168e-492b-8750-3e91b6e0953f/Connected-People-and-Places-Icon-Final-9.png?format=1000w"
+                        alt="img"/>
+                        <h1 className="text-2xl xl:text-3xl font-extrabold">
+                            Explore | Inspire | Engage
+                        </h1>
+                        <p className='text-gray-400 mt-4 text-center ml-5 mr-5'>
+                            Welcome to my place of thoughts where I share my thoughts, my perspective and personal experiences, each post offers a glimpse into how I view the world of tech and the ideas that shape my thoughts.
+                        </p>
+                        <div className="w-full flex-1 mt-40">
+                            <div className="flex flex-col items-center">
+                                <button
+                                    className="w-full max-w-xs font-bold shadow-sm rounded-lg py-3 bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline"
+                                    onClick={signInWithGoogle}
+                                >
+                                    <div className="bg-white p-2 rounded-full">
+                                        <svg className="w-4" viewBox="0 0 533.5 544.3">
+                                            <path
+                                                d="M533.5 278.4c0-18.5-1.5-37.1-4.7-55.3H272.1v104.8h147c-6.1 33.8-25.7 63.7-54.4 82.7v68h87.7c51.5-47.4 81.1-117.4 81.1-200.2z"
+                                                fill="#4285f4"
+                                            />
+                                            <path
+                                                d="M272.1 544.3c73.4 0 135.3-24.1 180.4-65.7l-87.7-68c-24.4 16.6-55.9 26-92.6 26-71 0-131.2-47.9-152.8-112.3H28.9v70.1c46.2 91.9 140.3 149.9 243.2 149.9z"
+                                                fill="#34a853"
+                                            />
+                                            <path
+                                                d="M119.3 324.3c-11.4-33.8-11.4-70.4 0-104.2V150H28.9c-38.6 76.9-38.6 167.5 0 244.4l90.4-70.1z"
+                                                fill="#fbbc04"
+                                            />
+                                            <path
+                                                d="M272.1 107.7c38.8-.6 76.3 14 104.4 40.8l77.7-77.7C405 24.6 339.7-.8 272.1 0 169.2 0 75.1 58 28.9 150l90.4 70.1c21.5-64.5 81.8-112.4 152.8-112.4z"
+                                                fill="#ea4335"
+                                            />
+                                        </svg>
+                                    </div>
+                                    <span className="ml-4">Get Started with Google</span>
+                                </button>
 
-        <h2 class="text-2xl font-semibold mb-2">Need of Utility Functions</h2>
-        <p class="mb-4">
-          Utility functions help in writing cleaner, more maintainable code by
-          abstracting common patterns and providing consistent error handling
-          and response formatting across your application's API endpoints. They
-          enhance readability, reduce duplication, and improve the
-          maintainability of your codebase.
-        </p>
+                                {/* <button
+                                    className="w-full max-w-xs font-bold shadow-sm rounded-lg py-3 bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline mt-5"
+                                >
+                                    <div className="bg-white p-1 rounded-full">
+                                        <svg className="w-6" viewBox="0 0 32 32">
+                                            <path
+                                                fillRule="evenodd"
+                                                d="M16 4C9.371 4 4 9.371 4 16c0 5.3 3.438 9.8 8.207 11.387.602.11.82-.258.82-.578 0-.286-.011-1.04-.015-2.04-3.34.723-4.043-1.609-4.043-1.609-.547-1.387-1.332-1.758-1.332-1.758-1.09-.742.082-.726.082-.726 1.203.086 1.836 1.234 1.836 1.234 1.07 1.836 2.808 1.305 3.492 1 .11-.777.422-1.305.762-1.605-2.664-.301-5.465-1.332-5.465-5.93 0-1.313.469-2.383 1.234-3.223-.121-.3-.535-1.523.117-3.175 0 0 1.008-.32 3.301 1.23A11.487 11.487 0 0116 9.805c1.02.004 2.047.136 3.004.402 2.293-1.55 3.297-1.23 3.297-1.23.656 1.652.246 2.875.12 3.175.77.84 1.231 1.91 1.231 3.223 0 4.61-2.804 5.621-5.476 5.922.43.367.812 1.101.812 2.219 0 1.605-.011 2.898-.011 3.293 0 .32.214.695.824.578C24.566 25.797 28 21.3 28 16c0-6.629-5.371-12-12-12z"
+                                            />
+                                        </svg>
+                                    </div>
+                                    <span className="ml-4">Get Started with Github</span>
+                                </button> */}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="flex-1 bg-black text-center lg:flex rounded-lg">
+                    <img
+                        className="w-full object-cover rounded-lg"
+                        src="https://images.squarespace-cdn.com/content/v1/63242d928945ce4bbfeea031/a0c7f966-6da3-43e9-84ac-65fad5c50afa/Community+Tech+Final+Web.jpg?format=2500w"
+                        alt="img"/>
+                </div>
+            </div>
+        </div>)
 
-        <ol class="list-decimal pl-6 mb-4">
-          <li>
-            <code class="language-javascript">asyncHandler</code>: This utility
-            function is used to handle asynchronous route handlers in
-            Express.js. In an Express.js application, route handlers can be
-            asynchronous (e.g., performing database queries, making HTTP
-            requests). Using <code>asyncHandler</code>, you can avoid repetitive
-            <code class="language-javascript">try...catch</code> blocks in each
-            route handler by wrapping them with
-            <code class="language-javascript">asyncHandler</code>.
-            <pre
-              class="bg-gray-800 text-white p-4 rounded mt-4"
-            ><code class="language-javascript">app.get('/api/resource', asyncHandler(async (req, res, next) => {
-    // Asynchronous operations, such as querying a database
-    const data = await Resource.find();
-    res.json(data);
-}));
-</code></pre>
-            <p>
-              Here,
-              <code class="language-javascript">asyncHandler</code> ensures that
-              any errors thrown inside the route handler are caught and passed
-              to Express's error-handling middleware.
-            </p>
-          </li>
-          <li>
-            <code class="language-javascript">APIResponse</code>: This class is
-            used to standardize the structure of API responses in your
-            application. Whenever your API needs to send a response, you can use
-            <code>APIResponse</code> to create instances representing different
-            types of responses (e.g., success response, error response).
-            <pre
-              class="bg-gray-800 text-white p-4 rounded mt-4"
-            ><code class="language-javascript">const successResponse = new APIResponse(200, "Resource found", { id: 1, name: "John" });
-const errorResponse = new APIResponse(404, "Resource not found");
-</code></pre>
-            <p>
-              These instances can then be sent as JSON responses in your
-              Express.js route handlers.
-            </p>
-          </li>
-          <li>
-            <code>APIError</code>: Similar to
-            <code class="language-javascript">APIResponse</code>, this class is
-            used to represent and handle errors in your API. Whenever an error
-            occurs in your application, you can create an instance of
-            <code>APIError</code> and send it as a JSON response to the client.
-            <pre
-              class="bg-gray-800 text-white p-4 rounded mt-4"
-            ><code class="language-javascript">app.get('/api/resource/:id', async (req, res, next) => {
-    try {
-        const resource = await Resource.findById(req.params.id);
-        if (!resource) {
-            throw new APIError(404, "Resource not found");
-        }
-        res.json(resource);
-    } catch (error) {
-        next(error); // Pass the error to Express's error-handling middleware
-    }
-});
-</code></pre>
-            <p>
-              In this example, if the requested resource is not found, an
-              <code>APIError</code> instance with a 404 status code and a custom
-              message is thrown and passed to Express's error-handling
-              middleware.
-            </p>
-          </li>
-        </ol>
-        <p class="mb-4">
-          Overall, these utilities help in writing cleaner, more maintainable
-          code by abstracting common patterns and providing consistent error
-          handling and response formatting across your application's API
-          endpoints. They enhance readability, reduce duplication, and improve
-          the maintainability of your codebase.
-        </p>
-      </div>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js"></script>
-      <script>
-        hljs.initHighlightingOnLoad();
-      </script>
-    </body>
-  </html>
-</html>
+    );
+};
+
+export default Authentication;
