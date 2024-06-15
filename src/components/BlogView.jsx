@@ -51,7 +51,7 @@ function BlogView() {
     }
 
     return (
-        <div className="min-h-screen flex flex-col bg-gray-950 text-white">
+        <div className="min-h-screen flex flex-col text-white" style={{ backgroundColor: '#171717' }}>
             {loading ? (<Loader />) : (
                 <main className="flex-grow py-12 px-4 md:px-6">
                     <Analytics />
@@ -68,7 +68,7 @@ function BlogView() {
                                 loading="lazy"
                             />
                         </div>
-                        <div className="bg-gray-950 rounded-lg overflow-auto">
+                        <div className="bg-gray-950 rounded-lg overflow-auto" style={{ backgroundColor: '#171717' }}>
                             <div dangerouslySetInnerHTML={{ __html: blogFile }} />
                         </div>
                     </div>

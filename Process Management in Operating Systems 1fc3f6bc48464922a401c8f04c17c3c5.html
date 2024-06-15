@@ -1,0 +1,1176 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Process Management in Operating Systems</title>
+	<style>
+		/* cspell:disable-file */
+		/* webkit printing magic: print all background colors */
+		html {
+			-webkit-print-color-adjust: exact;
+		}
+
+		* {
+			box-sizing: border-box;
+			-webkit-print-color-adjust: exact;
+		}
+
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		@media only screen {
+			body {
+				margin: 2em auto;
+				max-width: 900px;
+				color: rgb(55, 53, 47);
+			}
+		}
+
+		body {
+			line-height: 1.5;
+			white-space: pre-wrap;
+		}
+
+		a,
+		a.visited {
+			color: inherit;
+			text-decoration: underline;
+		}
+
+		.pdf-relative-link-path {
+			font-size: 80%;
+			color: #444;
+		}
+
+		h1,
+		h2,
+		h3 {
+			letter-spacing: -0.01em;
+			line-height: 1.2;
+			font-weight: 600;
+			margin-bottom: 0;
+		}
+
+		.page-title {
+			font-size: 2.5rem;
+			font-weight: 700;
+			margin-top: 0;
+			margin-bottom: 0.75em;
+		}
+
+		h1 {
+			font-size: 1.875rem;
+			margin-top: 1.875rem;
+		}
+
+		h2 {
+			font-size: 1.5rem;
+			margin-top: 1.5rem;
+		}
+
+		h3 {
+			font-size: 1.25rem;
+			margin-top: 1.25rem;
+		}
+
+		.source {
+			border: 1px solid #ddd;
+			border-radius: 3px;
+			padding: 1.5em;
+			word-break: break-all;
+		}
+
+		.callout {
+			border-radius: 3px;
+			padding: 1rem;
+		}
+
+		figure {
+			margin: 1.25em 0;
+			page-break-inside: avoid;
+		}
+
+		figcaption {
+			opacity: 0.5;
+			font-size: 85%;
+			margin-top: 0.5em;
+		}
+
+		mark {
+			background-color: transparent;
+		}
+
+		.indented {
+			padding-left: 1.5em;
+		}
+
+		hr {
+			background: transparent;
+			display: block;
+			width: 100%;
+			height: 1px;
+			visibility: visible;
+			border: none;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+		}
+
+		img {
+			max-width: 100%;
+		}
+
+		@media only print {
+			img {
+				max-height: 100vh;
+				object-fit: contain;
+			}
+		}
+
+		@page {
+			margin: 1in;
+		}
+
+		.collection-content {
+			font-size: 0.875rem;
+		}
+
+		.column-list {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.column {
+			padding: 0 1em;
+		}
+
+		.column:first-child {
+			padding-left: 0;
+		}
+
+		.column:last-child {
+			padding-right: 0;
+		}
+
+		.table_of_contents-item {
+			display: block;
+			font-size: 0.875rem;
+			line-height: 1.3;
+			padding: 0.125rem;
+		}
+
+		.table_of_contents-indent-1 {
+			margin-left: 1.5rem;
+		}
+
+		.table_of_contents-indent-2 {
+			margin-left: 3rem;
+		}
+
+		.table_of_contents-indent-3 {
+			margin-left: 4.5rem;
+		}
+
+		.table_of_contents-link {
+			text-decoration: none;
+			opacity: 0.7;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+		}
+
+		table,
+		th,
+		td {
+			border: 1px solid rgba(55, 53, 47, 0.09);
+			border-collapse: collapse;
+		}
+
+		table {
+			border-left: none;
+			border-right: none;
+		}
+
+		th,
+		td {
+			font-weight: normal;
+			padding: 0.25em 0.5em;
+			line-height: 1.5;
+			min-height: 1.5em;
+			text-align: left;
+		}
+
+		th {
+			color: rgba(55, 53, 47, 0.6);
+		}
+
+		ol,
+		ul {
+			margin: 0;
+			margin-block-start: 0.6em;
+			margin-block-end: 0.6em;
+		}
+
+		li>ol:first-child,
+		li>ul:first-child {
+			margin-block-start: 0.6em;
+		}
+
+		ul>li {
+			list-style: disc;
+		}
+
+		ul.to-do-list {
+			padding-inline-start: 0;
+		}
+
+		ul.to-do-list>li {
+			list-style: none;
+		}
+
+		.to-do-children-checked {
+			text-decoration: line-through;
+			opacity: 0.375;
+		}
+
+		ul.toggle>li {
+			list-style: none;
+		}
+
+		ul {
+			padding-inline-start: 1.7em;
+		}
+
+		ul>li {
+			padding-left: 0.1em;
+		}
+
+		ol {
+			padding-inline-start: 1.6em;
+		}
+
+		ol>li {
+			padding-left: 0.2em;
+		}
+
+		.mono ol {
+			padding-inline-start: 2em;
+		}
+
+		.mono ol>li {
+			text-indent: -0.4em;
+		}
+
+		.toggle {
+			padding-inline-start: 0em;
+			list-style-type: none;
+		}
+
+		/* Indent toggle children */
+		.toggle>li>details {
+			padding-left: 1.7em;
+		}
+
+		.toggle>li>details>summary {
+			margin-left: -1.1em;
+		}
+
+		.selected-value {
+			display: inline-block;
+			padding: 0 0.5em;
+			background: rgba(206, 205, 202, 0.5);
+			border-radius: 3px;
+			margin-right: 0.5em;
+			margin-top: 0.3em;
+			margin-bottom: 0.3em;
+			white-space: nowrap;
+		}
+
+		.collection-title {
+			display: inline-block;
+			margin-right: 1em;
+		}
+
+		.page-description {
+			margin-bottom: 2em;
+		}
+
+		.simple-table {
+			margin-top: 1em;
+			font-size: 0.875rem;
+			empty-cells: show;
+		}
+
+		.simple-table td {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table th {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table-header-color {
+			background: rgb(247, 246, 243);
+			color: black;
+		}
+
+		.simple-table-header {
+			font-weight: 500;
+		}
+
+		time {
+			opacity: 0.5;
+		}
+
+		.icon {
+			display: inline-block;
+			max-width: 1.2em;
+			max-height: 1.2em;
+			text-decoration: none;
+			vertical-align: text-bottom;
+			margin-right: 0.5em;
+		}
+
+		img.icon {
+			border-radius: 3px;
+		}
+
+		.user-icon {
+			width: 1.5em;
+			height: 1.5em;
+			border-radius: 100%;
+			margin-right: 0.5rem;
+		}
+
+		.user-icon-inner {
+			font-size: 0.8em;
+		}
+
+		.text-icon {
+			border: 1px solid #000;
+			text-align: center;
+		}
+
+		.page-cover-image {
+			display: block;
+			object-fit: cover;
+			width: 100%;
+			max-height: 30vh;
+		}
+
+		.page-header-icon {
+			font-size: 3rem;
+			margin-bottom: 1rem;
+		}
+
+		.page-header-icon-with-cover {
+			margin-top: -0.72em;
+			margin-left: 0.07em;
+		}
+
+		.page-header-icon img {
+			border-radius: 3px;
+		}
+
+		.link-to-page {
+			margin: 1em 0;
+			padding: 0;
+			border: none;
+			font-weight: 500;
+		}
+
+		p>.user {
+			opacity: 0.5;
+		}
+
+		td>.user,
+		td>time {
+			white-space: nowrap;
+		}
+
+		input[type="checkbox"] {
+			transform: scale(1.5);
+			margin-right: 0.6em;
+			vertical-align: middle;
+		}
+
+		p {
+			margin-top: 0.5em;
+			margin-bottom: 0.5em;
+		}
+
+		.image {
+			border: none;
+			margin: 1.5em 0;
+			padding: 0;
+			border-radius: 0;
+			text-align: center;
+		}
+
+		.code,
+		code {
+			background: rgba(135, 131, 120, 0.15);
+			border-radius: 3px;
+			padding: 0.2em 0.4em;
+			border-radius: 3px;
+			font-size: 85%;
+			tab-size: 2;
+		}
+
+		code {
+			color: #eb5757;
+		}
+
+		.code {
+			padding: 1.5em 1em;
+		}
+
+		.code-wrap {
+			white-space: pre-wrap;
+			word-break: break-all;
+		}
+
+		.code>code {
+			background: none;
+			padding: 0;
+			font-size: 100%;
+			color: inherit;
+		}
+
+		blockquote {
+			font-size: 1.25em;
+			margin: 1em 0;
+			padding-left: 1em;
+			border-left: 3px solid rgb(55, 53, 47);
+		}
+
+		.bookmark {
+			text-decoration: none;
+			max-height: 8em;
+			padding: 0;
+			display: flex;
+			width: 100%;
+			align-items: stretch;
+		}
+
+		.bookmark-title {
+			font-size: 0.85em;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			height: 1.75em;
+			white-space: nowrap;
+		}
+
+		.bookmark-text {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.bookmark-info {
+			flex: 4 1 180px;
+			padding: 12px 14px 14px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+		}
+
+		.bookmark-image {
+			width: 33%;
+			flex: 1 1 180px;
+			display: block;
+			position: relative;
+			object-fit: cover;
+			border-radius: 1px;
+		}
+
+		.bookmark-description {
+			color: rgba(55, 53, 47, 0.6);
+			font-size: 0.75em;
+			overflow: hidden;
+			max-height: 4.5em;
+			word-break: break-word;
+		}
+
+		.bookmark-href {
+			font-size: 0.75em;
+			margin-top: 0.25em;
+		}
+
+		.sans {
+			font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+		}
+
+		.code {
+			font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace;
+		}
+
+		.serif {
+			font-family: Lyon-Text, Georgia, ui-serif, serif;
+		}
+
+		.mono {
+			font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+		}
+
+		.pdf .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR';
+		}
+
+		.pdf .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.pdf .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR';
+		}
+
+		.pdf .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.highlight-default {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.highlight-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.highlight-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.highlight-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.highlight-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.highlight-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.highlight-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.highlight-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.highlight-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.highlight-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.highlight-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.highlight-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.highlight-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.highlight-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.highlight-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.highlight-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.highlight-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.highlight-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.block-color-default {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.block-color-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.block-color-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.block-color-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.block-color-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.block-color-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.block-color-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.block-color-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.block-color-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.block-color-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.block-color-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.block-color-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.block-color-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.block-color-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.block-color-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.block-color-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.block-color-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.block-color-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.select-value-color-uiBlue {
+			background-color: rgba(35, 131, 226, .07);
+		}
+
+		.select-value-color-pink {
+			background-color: rgba(245, 224, 233, 1);
+		}
+
+		.select-value-color-purple {
+			background-color: rgba(232, 222, 238, 1);
+		}
+
+		.select-value-color-green {
+			background-color: rgba(219, 237, 219, 1);
+		}
+
+		.select-value-color-gray {
+			background-color: rgba(227, 226, 224, 1);
+		}
+
+		.select-value-color-transparentGray {
+			background-color: rgba(227, 226, 224, 0);
+		}
+
+		.select-value-color-translucentGray {
+			background-color: rgba(255, 255, 255, 0.0375);
+		}
+
+		.select-value-color-orange {
+			background-color: rgba(250, 222, 201, 1);
+		}
+
+		.select-value-color-brown {
+			background-color: rgba(238, 224, 218, 1);
+		}
+
+		.select-value-color-red {
+			background-color: rgba(255, 226, 221, 1);
+		}
+
+		.select-value-color-yellow {
+			background-color: rgba(253, 236, 200, 1);
+		}
+
+		.select-value-color-blue {
+			background-color: rgba(211, 229, 239, 1);
+		}
+
+		.select-value-color-pageGlass {
+			background-color: undefined;
+		}
+
+		.select-value-color-washGlass {
+			background-color: undefined;
+		}
+
+		.checkbox {
+			display: inline-flex;
+			vertical-align: text-bottom;
+			width: 16;
+			height: 16;
+			background-size: 16px;
+			margin-left: 2px;
+			margin-right: 5px;
+		}
+
+		.checkbox-on {
+			background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+		}
+
+		.checkbox-off {
+			background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+		}
+	</style>
+</head>
+
+<body>
+	<article id="1fc3f6bc-4846-4922-a401-c8f04c17c3c5" class="page sans">
+		<header>
+			<h1 class="page-title">Process Management in Operating Systems</h1>
+			<p class="page-description"></p>
+		</header>
+		<div class="page-body">
+			<h1 id="1e72cecc-722e-4b98-ae76-ca0c44e6a671" class="">Process</h1>
+			<p id="62dabae5-b05c-47ae-ab57-1cacee8f8d94" class="">A program under execution is called a process. A
+				program is a passive entity and a process is an active entity.</p>
+			<h2 id="d5da8540-5e9b-4356-98ea-4e7f97d4a7c4" class="">Components of a Process</h2>
+			<p id="13ca27a8-faa8-41d7-b702-accf51a5de32" class="">Every process has the following entities compulsorily,
+			<div class="indented">
+				<ol type="1" id="23f16e64-838f-4cf5-8c01-7c93e42a21fa" class="numbered-list" start="1">
+					<li>Address Space</li>
+				</ol>
+				<ol type="1" id="56021a45-2af3-4221-8a2f-604393c9fa24" class="numbered-list" start="2">
+					<li>CPU State </li>
+				</ol>
+				<ol type="1" id="d56972b5-105d-4f13-ae03-c21ad8947f67" class="numbered-list" start="3">
+					<li>OS Resources</li>
+				</ol>
+			</div>
+			</p>
+			<h2 id="71f5387f-8f1e-4c3e-a06c-803e20218f42" class="">Address Space of a Process</h2>
+			<p id="966cda36-64b6-4dfe-b684-a607a2d0ab5f" class="">The range of virtual addresses that the operating
+				system assigns to a user or separately running program is called an address<strong> </strong>space. This
+				is the area of contiguous virtual addresses available for executing instructions and storing data. The
+				range of virtual addresses in an address space starts at zero and can extend to the highest address
+				permitted by the operating system architecture.</p>
+			<p id="cdd1116b-c7bd-4996-a631-c1b0dc0b51c5" class="">By default in 32-bit architecture the operating system
+				assigns 2³² bytes of space to a process which is 4GB approximately.</p>
+			<h2 id="949bfa83-c9a7-4a00-90f9-6482749a5117" class="">CPU State</h2>
+			<p id="cea9b12c-704a-4f71-8a88-4f0f3126e1e0" class="">This consists of information about all the registers
+				associated with a particular process.</p>
+			<p id="bd99ebd5-7801-4e31-afcf-6fc8e22eb59b" class="">Example:
+			<div class="indented">
+				<p id="e6fd7f3a-acd7-49ef-bcbc-daa36b049169" class="">a = b+c</p>
+				<p id="cd91adc6-ce4e-41d7-92f2-436f1380ad32" class="">mov b to ax</p>
+				<p id="0bb7fbe9-de82-41f9-b7f3-279aacc99c89" class="">add c to ax</p>
+				<p id="1bbc88f2-b73d-4552-bf53-7730feaf81c1" class="">mov ax to a</p>
+			</div>
+			</p>
+			<h2 id="de09fffc-7cd2-47d6-9773-6a06eca5231e" class="">OS Resources</h2>
+			<p id="2ed4dfc4-ba38-4341-a866-d964251100cb" class="">The OS Resources consists of open-sockets and
+				open-files.</p>
+			<p id="a4e2c130-f5a7-4c2a-bf61-d341d98d36f7" class="">The open-files consists of,
+			<div class="indented">
+				<ol type="1" id="750f1f3e-c518-41ef-acf5-5df01f5c553a" class="numbered-list" start="1">
+					<li><code>stdin</code></li>
+				</ol>
+				<ol type="1" id="0cbfc7b0-b55a-4b45-b38a-c408871199d6" class="numbered-list" start="2">
+					<li><code>stdout</code></li>
+				</ol>
+				<ol type="1" id="7f02e29b-ff61-4993-a2b0-3ae75c1cd118" class="numbered-list" start="3">
+					<li><code>stderr</code></li>
+				</ol>
+			</div>
+			</p>
+			<p id="d16f99c0-5a73-483c-b8da-9f1764f466b4" class="">The open-sockets consists of.
+			<div class="indented">
+				<ol type="1" id="1b065708-466d-4052-a8f4-6bed4b70b518" class="numbered-list" start="1">
+					<li><code>File if</code></li>
+				</ol>
+				<ol type="1" id="f4edb4e0-1de2-478c-a2d4-07234bae44c1" class="numbered-list" start="2">
+					<li><code>others</code></li>
+				</ol>
+			</div>
+			</p>
+			<h1 id="a3576228-25d3-400d-8791-1c4185721159" class="">Representation of a Process in a Operating System
+			</h1>
+			<p id="b24d732b-d2c7-43b7-a7a5-5d23dac9ee42" class="">In operating system each process is associated with
+				<strong>Process Control Block</strong> or <strong>(PCB). </strong>The process control block consists of
+				the following items which are listed below,
+			<div class="indented">
+				<ol type="1" id="31d1a076-6303-473e-91c9-bc1fd36acdfd" class="numbered-list" start="1">
+					<li>Process ID- Each process is associated with a Process ID which is unique for every process. This
+						ID can be used to identify a process from others. The process ID is assigned by the operating
+						system to a process when the process is created.</li>
+				</ol>
+				<ol type="1" id="c19e490a-0135-404c-9ec7-86c057e76e05" class="numbered-list" start="2">
+					<li>Parent Process ID- The Process ID of the parent process that creates the current process is
+						called the Parent Process ID. The first process that is created when a computer boots up is
+						called the <code>init</code> process and it has an process ID of zero.</li>
+				</ol>
+				<ol type="1" id="2a140275-06be-44bb-9d68-a34b8c7b31ca" class="numbered-list" start="3">
+					<li>CPU State- This consists of information of all the registers associated with a process.</li>
+				</ol>
+				<ol type="1" id="8b2f7978-d33b-4f37-a6a1-7eec8d628904" class="numbered-list" start="4">
+					<li>Process State- This refers to the current state of the process. A process can be in ready state,
+						running state, terminated state, block suspend state or ready suspend state.</li>
+				</ol>
+				<ol type="1" id="7b11516a-b303-4e91-bb41-d7f460de8218" class="numbered-list" start="5">
+					<li>Scheduling Information- This consists information about the priority of the specific process.
+					</li>
+				</ol>
+				<ol type="1" id="f2907807-831a-4695-9c90-60089f6c3819" class="numbered-list" start="6">
+					<li>Memory Information- This consists of information about the memory space associated with a
+						process. This tells us about the amount of RAM used by the process.</li>
+				</ol>
+				<ol type="1" id="f1ea6eac-f3ee-439f-b515-3abcf3b993b7" class="numbered-list" start="7">
+					<li>Open-Files- They consists of the following as discussed earlier,<ol type="a"
+							id="f15899f3-6a76-403d-aba7-5828f0693732" class="numbered-list" start="1">
+							<li><code>stdin</code></li>
+						</ol>
+						<ol type="a" id="ce4fcb0f-5696-419f-a27b-5e516388c37b" class="numbered-list" start="2">
+							<li><code>stdout</code></li>
+						</ol>
+						<ol type="a" id="cdb94d79-12a5-423c-8d22-5d9000ede085" class="numbered-list" start="3">
+							<li><code>stderr</code></li>
+						</ol>
+					</li>
+				</ol>
+				<p id="cdcf1381-0301-46a8-9f32-6a7e565c2e3c" class=""><strong>Note: </strong></p>
+				<ol type="1" id="e1472541-f4e8-4426-91ff-cb5cad188672" class="numbered-list" start="1">
+					<li>When we create a process the terminal becomes its parent. </li>
+				</ol>
+				<ol type="1" id="bd08ec41-3f45-4d0f-9404-e4544d59b921" class="numbered-list" start="2">
+					<li>The content of the PCB is called context.</li>
+				</ol>
+				<ol type="1" id="13946446-388e-4ec7-aca4-88cb0268952a" class="numbered-list" start="3">
+					<li>PCB is always in the memory area.</li>
+				</ol>
+				<ol type="1" id="7335c7d5-1118-4516-9010-cdd00a4458bf" class="numbered-list" start="4">
+					<li>PC- Stands for program counter is used to point to the next program.</li>
+				</ol>
+				<ol type="1" id="608ff1ce-e244-4206-a677-c74b3515da12" class="numbered-list" start="5">
+					<li>IC- Stands for instruction counter is used to point to the next instruction.</li>
+				</ol>
+				<ol type="1" id="320144cf-d6d1-48b0-b209-a9b34a81a379" class="numbered-list" start="6">
+					<li><code>fork()</code> system call in C is used to create a new process by duplicating the calling
+						process. It creates a new process called the child process. The child process is a copy of the
+						parent process, except for the returned value and some other minor differences (e.g., different
+						process IDs).<ul id="139f8b20-d645-4dd1-a474-775aac6b6ac0" class="bulleted-list">
+							<li style="list-style-type:disc"><strong>In the Parent Process:</strong> <code>fork()</code>
+								returns the process ID (PID) of the child process.</li>
+						</ul>
+						<ul id="0c4adc54-a77e-4c61-bf79-e94bdf4c4104" class="bulleted-list">
+							<li style="list-style-type:disc"><strong>In the Child Process:</strong> <code>fork()</code>
+								returns <code>0</code>.</li>
+						</ul>
+						<ul id="092140de-b859-43fd-b313-e660403efdf0" class="bulleted-list">
+							<li style="list-style-type:disc"><strong>On Failure:</strong> <code>fork()</code> returns
+								<code>1</code> in the parent process, and no child process is created. Additionally, the
+								global variable <code>errno</code> is set to indicate the error.</li>
+						</ul>
+					</li>
+				</ol>
+				<ol type="1" id="03d26215-2ed6-43d1-a513-453a674c310a" class="numbered-list" start="7">
+					<li>When multiple instance of a process is created the, <code>program code</code> along with
+						<code>data section</code> and <code>stack</code> gets copied. Each instance of a process has its
+						own independant memory so any changes to the memory in one instance dosenot afftect the other
+						process.</li>
+				</ol>
+				<ol type="1" id="78a8dde6-373b-4d76-b64d-502c4bc644ff" class="numbered-list" start="8">
+					<li><code>wait()</code> is a system call that suspends the calling process until one of its child
+						process terminates. The <code>wait()</code> retreives the child’s exit status and returns it to
+						the parent. Zero means that the child has died successfully, 1 means the child has died in a
+						unexpected way and greater than one means some issue.</li>
+				</ol>
+				<ol type="1" id="27b35714-6367-474b-8fe5-e39b6f84214c" class="numbered-list" start="9">
+					<li>Orphan Process- Process whose parent has terminated leaving the child process still runnning is
+						called orphan process. When a process becomes orphan the <code>init</code> process adopts the
+						process.</li>
+				</ol>
+				<ol type="1" id="63b3664e-0dfa-4de5-a417-20cc85e114ec" class="numbered-list" start="10">
+					<li>Zombie Process- When the child process is terminated and the parent is busy with some other work
+						then in that scenario the process becomes Zombie Process.</li>
+				</ol>
+				<h1 id="7482b070-417a-43da-9a49-396abcc403ea" class="">Communication Between Process</h1>
+				<p id="c89a94f2-d6ab-48e1-b672-9f6c12c79819" class="">Piping in OS is a technique for interprocess
+					communication in which the output for one process serves as an input to the another process. It
+					works by creating a channel for the data to flow from one process to another.</p>
+				<h1 id="52cf5dfa-03b2-4030-a120-d8d80021faff" class="">State Transition Diagram for a Process</h1>
+				<figure id="88eb531c-e24e-4db5-8034-681ce53e2ce9" class="image"><a
+						href="Process%20Management%20in%20Operating%20Systems%201fc3f6bc48464922a401c8f04c17c3c5/Untitled.png"><img
+							style="width:1296px"
+							src="Process%20Management%20in%20Operating%20Systems%201fc3f6bc48464922a401c8f04c17c3c5/Untitled.png" /></a>
+				</figure>
+				<h1 id="5d3fe6a2-91ab-46fe-b058-a6db38065003" class="">Schedulers in Operating Systems</h1>
+				<ol type="1" id="22628d8a-0d3f-4ed8-8837-55cf2ca9b114" class="numbered-list" start="1">
+					<li>Short Term Scheduler- Its main function is to select a process out of many available processes
+						in the ready queue to allocate the CPU. Move process from ready queue to running queue.</li>
+				</ol>
+				<ol type="1" id="43d8479d-52a5-4361-b424-68a3278173cd" class="numbered-list" start="2">
+					<li>Long Term Scheduler- Its main function is to move process from job queue to the ready queue. It
+						is responsible for bringing a combination of CPU job and IO job.</li>
+				</ol>
+				<ol type="1" id="7301dd93-ca20-4053-8f72-06183d5ccc3e" class="numbered-list" start="3">
+					<li>Mid Term Scheduler- Its main function is to swap in and swap out processes between the RAM and
+						HDD. Swaps out the process which less priority and more memory requirements.</li>
+				</ol>
+				<h1 id="2af789aa-311b-4689-933b-d90aee05b104" class="">Context Switching</h1>
+				<p id="cea04564-e871-41cc-a086-2f279746be91" class="">Context switching is the process of storing the
+					state of a currently running process or thread so that it can be resumed later, and then loading the
+					state of the next process or thread to be executed by the CPU. This allows multiple processes to
+					share a single CPU, giving the illusion that they are running simultaneously.</p>
+				<p id="15af77e8-195c-4fed-92ec-ac6e9b68e5d3" class="">When context switching occurs the OS saves state
+					of a process, the registers associated and the stack in the PCB of the process.</p>
+				<figure id="7f533c73-666f-43e2-b4a8-4ccc8d1ceae6" class="image"><a
+						href="https://static.javatpoint.com/operating-system/images/what-is-the-context-switching-in-the-operating-system.png"><img
+							src="https://static.javatpoint.com/operating-system/images/what-is-the-context-switching-in-the-operating-system.png" /></a>
+				</figure>
+				<h1 id="047a090c-b18c-4c59-a30b-833c85744b2a" class="">Threads</h1>
+				<p id="791f7913-da73-48b2-b0f8-c7865a20bbde" class="">Thread is the light weight version of a process
+					having the same address space as per the parent process. Since a thread uses the address space of
+					the parent hence the thread takes less space than a process. Each thread has their own thread
+					control block. </p>
+				<p id="f39eabd3-7522-48db-93e1-42333f43e194" class="">In threads they have their own stack. They cannot
+					share local variables but can share global variables. </p>
+				<p id="399c48c9-e47c-4b95-8b8f-7c1b551b7bee" class="">For threads the chances of context switching is
+					less if they belong to the same parent. If a thread makes an I/O the entire process goes to a
+					waiting state and the next process comes.</p>
+				<h2 id="d1327740-1a82-4ca9-b942-c7df8388bd96" class="">Types of Threads</h2>
+				<ol type="1" id="c3a841a9-f22f-428b-bb9f-37a5c22d6d31" class="numbered-list" start="1">
+					<li><strong>User Level Threads-</strong> They are threads that are created by the user and runs in
+						the user mode and they have less privileges and less resources than kernel level thread.</li>
+				</ol>
+				<ol type="1" id="1388875c-ca9b-484c-8705-7442a650e6f1" class="numbered-list" start="2">
+					<li><strong>Kernel Level Threads-</strong> They are threads that are created by the system hence
+						they are also called the system threads. They run in kernal mode and hence they have more
+						privileged access and resources.</li>
+				</ol>
+				<h1 id="98bbb556-ae48-49b9-a457-339305777376" class="">Scheduling Algorithms in Operating Systems</h1>
+				<p id="46f13461-aa86-4fcc-8def-16ce84e21243" class="">In operating systems, scheduling algorithms are
+					essential for managing the execution of processes. These algorithms determine which process will run
+					at any given time, optimizing for various performance metrics such as response time, throughput, and
+					CPU utilization. Below are descriptions of some commonly used scheduling algorithms:</p>
+				<h3 id="77d18ee7-442d-4aba-8653-f0830e54fafa" class="">First-Come, First-Served (FCFS)</h3>
+				<ul id="523976c2-e45c-4c70-a928-936ee3d3b8a0" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Description</strong>: FCFS is the simplest scheduling
+						algorithm where processes are executed in the order they arrive in the ready queue.</li>
+				</ul>
+				<ul id="facf07dc-39c5-4246-a5e7-6ef6ef26f94b" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Advantages</strong>: Easy to implement and understand.</li>
+				</ul>
+				<ul id="686c917d-ab5c-48ba-bd20-77d3c46dcb35" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Disadvantages</strong>: Can lead to the <strong>convoy
+							effect</strong>, where short processes are delayed by longer ones, leading to poor
+						utilization and increased average waiting time.</li>
+				</ul>
+				<h3 id="54c9be98-c714-457f-8f3b-7c0e95b24224" class="">Convoy Effect</h3>
+				<ul id="f6387695-7060-428d-8636-a9d62b6e8dfc" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Description</strong>: The convoy effect occurs in FCFS
+						scheduling when a long process occupies the CPU, causing all shorter processes behind it to
+						wait. This results in decreased system efficiency and increased average waiting time.</li>
+				</ul>
+				<h3 id="a3feb280-1f09-481e-a3ee-32503c9047f0" class="">Shortest Job First (SJF)</h3>
+				<ul id="8a09628e-0b7e-47f7-8f09-20d62599b423" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Description</strong>: SJF selects the process with the
+						shortest execution time to run next.</li>
+				</ul>
+				<ul id="553465b0-9d79-4173-a7c2-2b30b3754e53" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Advantages</strong>: Minimizes average waiting time and is
+						optimal if all jobs are available simultaneously.</li>
+				</ul>
+				<ul id="286f8d52-28df-43aa-94cb-832cd7d39c19" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Disadvantages</strong>: Not practical for interactive
+						systems and can cause <strong>starvation</strong> of longer processes.</li>
+				</ul>
+				<h3 id="b9787ce4-8d66-4a68-a15d-ec8eec1f44ab" class="">Shortest Remaining Time First (SRTF)</h3>
+				<ul id="344f75f8-3ea5-4c86-96c9-360644b7acc2" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Description</strong>: SRTF is a preemptive version of SJF,
+						where the process with the smallest amount of time remaining until completion is selected to run
+						next.</li>
+				</ul>
+				<ul id="419b19ff-479a-4133-bdb5-b42fd39b222c" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Advantages</strong>: Further reduces average waiting time
+						compared to SJF.</li>
+				</ul>
+				<ul id="6fa39312-0d12-4471-905b-d734289133ca" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Disadvantages</strong>: Similar to SJF, it can lead to
+						starvation of longer processes.</li>
+				</ul>
+				<h3 id="6c23d0e3-e527-4cb3-8cf7-70afd1b5889c" class="">Priority Scheduling</h3>
+				<ul id="c00c6106-f936-4dc5-a964-c402c1896cc5" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Description</strong>: Processes are assigned a priority,
+						and the process with the highest priority is executed first. Priorities can be static or
+						dynamic.</li>
+				</ul>
+				<ul id="f573fe97-5dae-4ef8-b548-8ec6f88554c1" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Advantages</strong>: Can provide good response time for
+						high-priority processes.</li>
+				</ul>
+				<ul id="69fa5861-dcc5-43bb-8599-c7e1ed0674a4" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Disadvantages</strong>: May lead to
+						<strong>starvation</strong> where low-priority processes are never executed.</li>
+				</ul>
+				<h3 id="7aebbb45-7ab0-47ff-b94e-f55662ab8b66" class="">Starvation</h3>
+				<ul id="b475a995-a5bc-4656-9438-9b1145f13647" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Description</strong>: Starvation occurs when a process is
+						perpetually delayed because other higher-priority processes continually take precedence. This is
+						a significant issue in priority-based scheduling algorithms.</li>
+				</ul>
+				<h3 id="b6f53412-e680-40bd-8a04-87ab6dc3125e" class="">Round Robin (RR)</h3>
+				<ul id="909a394f-25c8-401f-8a08-1b4b86f77d6a" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Description</strong>: RR assigns a fixed time unit per
+						process and cycles through them in the ready queue. Each process is given a small time slice
+						(quantum), and if it doesn’t finish during this quantum, it is placed at the end of the queue.
+					</li>
+				</ul>
+				<ul id="9afb71c8-88e2-4880-9474-e349cc23a997" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Advantages</strong>: Fair and ensures no starvation. Good
+						for time-sharing systems.</li>
+				</ul>
+				<ul id="52e94b49-b4b5-4a77-b3cb-ef97828826b4" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Disadvantages</strong>: Choosing the right time quantum is
+						critical. Too short can lead to high overhead, too long can degrade into FCFS.</li>
+				</ul>
+				<h3 id="fe9cf545-cc47-4a64-bd19-019793b73ecd" class="">Multilevel Queue Scheduling</h3>
+				<ul id="3643283d-dfa3-47b5-9ab9-823117c68a7e" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Description</strong>: Processes are divided into different
+						queues based on their priority or type (e.g., foreground vs. background). Each queue can have
+						its own scheduling algorithm, and queues themselves are scheduled with a higher-level algorithm.
+					</li>
+				</ul>
+				<ul id="7d1ae76b-6aef-43d4-9b98-7501f5ff6068" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Advantages</strong>: Flexible and can handle a variety of
+						process types and priorities.</li>
+				</ul>
+				<ul id="7594e5c6-0055-4aa8-bd62-29825bd53a73" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Disadvantages</strong>: Complex to implement and manage.
+					</li>
+				</ul>
+				<h3 id="8d79effd-8f13-4e54-8934-ff15469399ba" class="">Multilevel Feedback Queue Scheduling</h3>
+				<ul id="7bf5d4b1-0122-4308-af26-122ab470aa75" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Description</strong>: An extension of multilevel queue
+						scheduling, this algorithm allows processes to move between queues based on their behavior and
+						requirements. Typically, a process that uses too much CPU time is moved to a lower-priority
+						queue, while processes that wait too long can be moved to a higher-priority queue.</li>
+				</ul>
+				<ul id="14e098a3-70b1-49ac-a351-ef12c67eaa02" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Advantages</strong>: Dynamically adjusts to changing
+						process behavior, improving responsiveness and CPU utilization.</li>
+				</ul>
+				<ul id="76026528-01e9-40c1-a8b9-4f48a4f89171" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Disadvantages</strong>: Complex to implement and fine-tune.
+					</li>
+				</ul>
+				<p id="358ab8d7-ee82-446a-8a8c-0f567336ac5e" class="">
+				</p>
+				<p id="cf45c57a-8397-43eb-a9f3-1abb72c1b87c" class="">
+				</p>
+			</div>
+			</p>
+		</div>
+	</article><span class="sans" style="font-size:14px;padding-top:2em"></span>
+</body>
+
+</html>

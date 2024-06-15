@@ -1,0 +1,417 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sample Page with Code Highlighting</title>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/tomorrow.min.css"> -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css"> -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+    <!-- and it's easy to individually load additional languages -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
+
+    <script>
+        hljs.highlightAll();
+    </script>
+</head>
+
+<body>
+    <article id="1fc3f6bc-4846-4922-a401-c8f04c17c3c5" class="font-sans">
+        <div class="page-body">
+            <h1 class="text-4xl font-bold mb-2">Process Management in Operating Systems</h1>
+            <p class="text-xl mb-4">Welcome to our journey into the fascinating world of process management in Operating Systems. In this article, we will delve into the intricacies of processes, their components, and how they interact with the operating system. Let's embark on this journey together and explore the realm of process management.</p>
+            <h1 class="text-3xl font-bold">Process</h1>
+            <p class="text-xl mb-4">A program under execution is called a process. A
+                program is a passive entity and a process is an active entity.</p>
+            <h2 class="text-3xl font-bold">Components of a Process</h2>
+            <p class="text-xl">Every process has the following entities compulsorily,
+            <div class="indented text-xl">
+                <ol class="list-decimal text-lg mb-4 pl-6">
+                    <li class="ml-4">Address Space</li>
+                    <li class="ml-4">CPU State</li>
+                    <li class="ml-4">OS Resources</li>
+                </ol>
+            </div>
+            </p>
+            <h2 id="71f5387f-8f1e-4c3e-a06c-803e20218f42" class="text-2xl font-bold">Address Space of a Process</h2>
+            <p id="966cda36-64b6-4dfe-b684-a607a2d0ab5f" class="text-xl">The range of virtual addresses that the
+                operating
+                system assigns to a user or separately running program is called an address<strong> </strong>space. This
+                is the area of contiguous virtual addresses available for executing instructions and storing data. The
+                range of virtual addresses in an address space starts at zero and can extend to the highest address
+                permitted by the operating system architecture.</p>
+            <br>
+            <p id="cdd1116b-c7bd-4996-a631-c1b0dc0b51c5" class="text-xl">By default in 32-bit architecture the operating
+                system
+                assigns 2³² bytes of space to a process which is 4GB approximately.</p>
+            <h2 id="949bfa83-c9a7-4a00-90f9-6482749a5117" class="text-2xl font-bold mt-4">CPU State</h2>
+            <p id="cea9b12c-704a-4f71-8a88-4f0f3126e1e0" class="text-xl">This consists of information about all the
+                registers
+                associated with a particular process.</p>
+            <p id="bd99ebd5-7801-4e31-afcf-6fc8e22eb59b" class="text-xl">Example:
+            <div class="indented">
+                <p id="e6fd7f3a-acd7-49ef-bcbc-daa36b049169" class="font-mono text-lg ml-4">a = b+c</p>
+                <p id="cd91adc6-ce4e-41d7-92f2-436f1380ad32" class="font-mono text-lg ml-4">mov b to ax</p>
+                <p id="0bb7fbe9-de82-41f9-b7f3-279aacc99c89" class="font-mono text-lg ml-4">add c to ax</p>
+                <p id="1bbc88f2-b73d-4552-bf53-7730feaf81c1" class="font-mono text-lg ml-4">mov ax to a</p>
+            </div>
+            </p>
+            <h2 id="de09fffc-7cd2-47d6-9773-6a06eca5231e" class="text-2xl font-bold mt-4">OS Resources</h2>
+            <p id="2ed4dfc4-ba38-4341-a866-d964251100cb" class="text-xl">The OS Resources consists of open-sockets and
+                open-files.</p>
+            <p id="a4e2c130-f5a7-4c2a-bf61-d341d98d36f7" class="text-xl">The open-files consists of,
+            <div class="indented">
+                <ul class="list-decimal list-inside font-mono text-lg ml-4">
+                    <li><code>stdin</code></li>
+                    <li><code>stdout</code></li>
+                    <li><code>stderr</code></li>
+                </ul>
+            </div>
+            </p>
+            <p id="d16f99c0-5a73-483c-b8da-9f1764f466b4" class="text-xl">The open-sockets consists of.
+            <div class="indented">
+                <ul class="list-decimal list-inside font-mono text-lg ml-4">
+                    <li><code>File if</code></li>
+                    <li><code>others</code></li>
+                </ul>
+            </div>
+            </p>
+            <h1 id="a3576228-25d3-400d-8791-1c4185721159" class="text-3xl font-bold mt-4">Representation of a Process in
+                a
+                Operating System
+            </h1>
+            <p id="b24d732b-d2c7-43b7-a7a5-5d23dac9ee42" class="text-xl">In operating system each process is associated
+                with
+                <strong>Process Control Block</strong> or <strong>(PCB). </strong>The process control block consists of
+                the following items which are listed below,
+            <div class="indented text-xl">
+                <ol type="1" id="31d1a076-6303-473e-91c9-bc1fd36acdfd" class="list-decimal list-inside ml-4 mb-4"
+                    start="1">
+                    <li>
+                        <span><strong>Process ID-</strong> Each process is associated with a Process ID which is unique
+                            for every process. This
+                            ID can be used to identify a process from others. The process ID is assigned by the
+                            operating
+                            system to a process when the process is created.</span>
+                    </li>
+                    <li>
+                        <span><strong>Parent Process ID- </strong>The Process ID of the parent process that creates the
+                            current process is
+                            called the Parent Process ID. The first process that is created when a computer boots up is
+                            called the <code>init</code> process and it has an process ID of zero.</span>
+                    </li>
+                    <li>
+                        <span><strong>CPU State-</strong> This consists of information of all the registers associated
+                            with a process.</span>
+                    </li>
+                    <li>
+                        <span><strong>Process State-</strong> This refers to the current state of the process. A process
+                            can be in ready state,
+                            running state, terminated state, block suspend state or ready suspend state.</span>
+                    </li>
+                    <li>
+                        <span><strong>Scheduling Information-</strong> This consists information about the priority of
+                            the specific process.</span>
+                    </li>
+                    <li>
+                        <span><strong>Memory Information-</strong> This consists of information about the memory space
+                            associated with a
+                            process. This tells us about the amount of RAM used by the process.</span>
+                    </li>
+                    <li>
+                        <span><strong>Open-Files-</strong> They consists of the following as discussed earlier,</span>
+                        <ul class="list-disc list-inside font-mono text-lg ml-4">
+                            <li><code>stdin</code></li>
+                            <li><code>stdout</code></li>
+                            <li><code>stderr</code></li>
+                        </ul>
+                    </li>
+                </ol>
+
+                <p id="cdcf1381-0301-46a8-9f32-6a7e565c2e3c" class="text-xl"><strong>Note: </strong></p>
+                <ol type="1" id="e1472541-f4e8-4426-91ff-cb5cad188672" class="list-decimal list-inside ml-4 mb-4"
+                    start="1">
+                    <li>When we create a process the terminal becomes its parent. </li>
+                    <li>The content of the PCB is called context.</li>
+                    <li>PCB is always in the memory area.</li>
+                    <li>PC- Stands for program counter is used to point to the next program.</li>
+                    <li>IC- Stands for instruction counter is used to point to the next instruction.</li>
+                    <li><code>fork()</code> system call in C is used to create a new process by duplicating the calling
+                        process. It creates a new process called the child process. The child process is a copy of the
+                        parent process, except for the returned value and some other minor differences (e.g., different
+                        process IDs).
+                        <ul id="139f8b20-d645-4dd1-a474-775aac6b6ac0" class="bulleted-list ml-8 font-mono">
+                            <li style="list-style-type:disc"><strong>In the Parent Process:</strong> <code>fork()</code>
+                                returns the process ID (PID) of the child process.</li>
+                            <li style="list-style-type:disc"><strong>In the Child Process:</strong> <code>fork()</code>
+                                returns <code>0</code>.</li>
+                            <li style="list-style-type:disc"><strong>On Failure:</strong> <code>fork()</code> returns 1
+                            </li>
+                        </ul>
+                    </li>
+                    <li>When multiple instance of a process is created the, <code>program code</code> along with
+                        <code>data section</code> and <code>stack</code> gets copied. Each instance of a process has its
+                        own independant memory so any changes to the memory in one instance dosenot afftect the other
+                        process.
+                    </li>
+                    <li><code>wait()</code> is a system call that suspends the calling process until one of its child
+                        process terminates. The <code>wait()</code> retreives the child’s exit status and returns it to
+                        the parent. Zero means that the child has died successfully, 1 means the child has died in a
+                        unexpected way and greater than one means some issue.</li>
+                    <li>Orphan Process- Process whose parent has terminated leaving the child process still runnning is
+                        called orphan process. When a process becomes orphan the <code>init</code> process adopts the
+                        process.</li>
+                    <li>Zombie Process- When the child process is terminated and the parent is busy with some other work
+                        then in that scenario the process becomes Zombie Process.</li>
+                </ol>
+
+
+                <h1 id="7482b070-417a-43da-9a49-396abcc403ea" class="text-3xl font-bold ">Communication Between Process
+                </h1>
+                <p id="c89a94f2-d6ab-48e1-b672-9f6c12c79819" class="text-xl">Piping in OS is a technique for
+                    interprocess
+                    communication in which the output for one process serves as an input to the another process. It
+                    works by creating a channel for the data to flow from one process to another.</p>
+                <h1 id="52cf5dfa-03b2-4030-a120-d8d80021faff" class="text-3xl font-bold mt-4">State Transition Diagram
+                    for a
+                    Process</h1>
+                <img src="https://siddhartha-speaks.notion.site/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F8e11dced-d127-42a5-959c-973ad6ac1394%2F78d16b86-59ad-4ede-91af-b44544fa2b08%2FUntitled.png?table=block&id=88eb531c-e24e-4db5-8034-681ce53e2ce9&spaceId=8e11dced-d127-42a5-959c-973ad6ac1394&width=2000&userId=&cache=v2"
+                    alt="" class="mb-4 ml-auto mr-auto mt-4 mb-4 rounded-lg">
+                <div>
+                    <div class="ml-4">
+
+                        <div class="mb-1">
+                            <h2 class="text-xl font-semibold mb-1"> New</h2>
+                            <p class="text-lg">The process is being created. It hasn't yet been admitted to the ready
+                                queue and is not ready for execution.</p>
+                        </div>
+
+                        <div class="mb-1">
+                            <h2 class="text-xl font-semibold mb-1"> Ready</h2>
+                            <p class="text-lg">The process is in the ready queue, waiting for CPU time to be executed.
+                                It's fully prepared and only needs CPU resources to run.</p>
+                        </div>
+
+                        <div class="mb-1">
+                            <h2 class="text-xl font-semibold mb-1"> Running</h2>
+                            <p class="text-lg">The process is currently being executed by the CPU. At this state,
+                                instructions are being actively processed.</p>
+                        </div>
+
+                        <div class="mb-1">
+                            <h2 class="text-xl font-semibold mb-1"> Waiting</h2>
+                            <p class="text-lg">The process is waiting for some event to occur (such as I/O completion or
+                                reception of a signal). It's in a blocked state and cannot proceed until the event is
+                                resolved.</p>
+                        </div>
+
+                        <div class="mb-1">
+                            <h2 class="text-xl font-semibold mb-1">Terminated</h2>
+                            <p class="text-lg">The process has finished execution. It can no longer be scheduled for
+                                execution and is removed from the process table.</p>
+                        </div>
+                    </div>
+                </div>
+                <h1 id="5d3fe6a2-91ab-46fe-b058-a6db38065003" class="text-3xl font-bold mt-4 mb-4">Schedulers in
+                    Operating Systems
+                </h1>
+                <ol type="1" id="22628d8a-0d3f-4ed8-8837-55cf2ca9b114" class="list-decimal list-inside ml-4" start="1">
+                    <li class="text-xl ">Short Term Scheduler- Its main function is to select a process out of many
+                        available processes
+                        in the ready queue to allocate the CPU. Move process from ready queue to running queue.</li>
+                    <li class="text-xl ">Long Term Scheduler- Its main function is to move process from job queue to the
+                        ready queue. It
+                        is responsible for bringing a combination of CPU job and IO job.</li>
+                    <li class="text-xl ">Mid Term Scheduler- Its main function is to swap in and swap out processes
+                        between the RAM and
+                        HDD. Swaps out the process which less priority and more memory requirements.</li>
+                </ol>
+
+                <h1 id="2af789aa-311b-4689-933b-d90aee05b104" class="text-3xl font-bold mt-4 mb-4">Context Switching
+                </h1>
+                <p id="cea04564-e871-41cc-a086-2f279746be91" class="text-xl">Context switching is the process of storing
+                    the
+                    state of a currently running process or thread so that it can be resumed later, and then loading the
+                    state of the next process or thread to be executed by the CPU. This allows multiple processes to
+                    share a single CPU, giving the illusion that they are running simultaneously.</p>
+                <br>
+                <p id="15af77e8-195c-4fed-92ec-ac6e9b68e5d3" class="text-xl">When context switching occurs the OS saves
+                    state
+                    of a process, the registers associated and the stack in the PCB of the process.</p>
+                <img src="https://static.javatpoint.com/operating-system/images/what-is-the-context-switching-in-the-operating-system.png"
+                    alt="" class="mb-4 ml-auto mr-auto mt-4 mb-4 rounded-lg">
+                </figure>
+
+                <h1 id="047a090c-b18c-4c59-a30b-833c85744b2a" class="text-3xl font-bold mt-4 mb-4">Threads</h1>
+                <p id="791f7913-da73-48b2-b0f8-c7865a20bbde" class="text-xl">Thread is the light weight version of a
+                    process
+                    having the same address space as per the parent process. Since a thread uses the address space of
+                    the parent hence the thread takes less space than a process. Each thread has their own thread
+                    control block. </p>
+                <p id="f39eabd3-7522-48db-93e1-42333f43e194" class="text-xl">In threads they have their own stack. They
+                    cannot
+                    share local variables but can share global variables. </p>
+                <p id="399c48c9-e47c-4b95-8b8f-7c1b551b7bee" class="text-xl">For threads the chances of context
+                    switching is
+                    less if they belong to the same parent. If a thread makes an I/O the entire process goes to a
+                    waiting state and the next process comes.</p>
+                <h2 id="d1327740-1a82-4ca9-b942-c7df8388bd96" class="text-xl font-semibold mt-4 mb-4">Types of Threads
+                </h2>
+                <ol type="1" id="c3a841a9-f22f-428b-bb9f-37a5c22d6d31" class="numbered-list ml-4" start="1">
+                    <li><strong>1. User Level Threads-</strong> They are threads that are created by the user and runs
+                        in
+                        the user mode and they have less privileges and less resources than kernel level thread.</li>
+                    <li><strong>2. Kernel Level Threads-</strong> They are threads that are created by the system hence
+                        they are also called the system threads. They run in kernal mode and hence they have more
+                        privileged access and resources.</li>
+                </ol>
+
+                <h1 id="98bbb556-ae48-49b9-a457-339305777376" class="text-3xl font-bold mb-4 mt-4 mb-4">Scheduling
+                    Algorithms in
+                    Operating Systems</h1>
+
+                <p id="46f13461-aa86-4fcc-8def-16ce84e21243" class="text-xl mb-4">In operating systems, scheduling
+                    algorithms are essential for managing the execution of processes. These algorithms determine which
+                    process will run at any given time, optimizing for various performance metrics such as response
+                    time, throughput, and CPU utilization. Below are descriptions of some commonly used scheduling
+                    algorithms:</p>
+                <div class="ml-4">
+                    <h3 id="77d18ee7-442d-4aba-8653-f0830e54fafa" class="text-2xl font-bold mb-2">First-Come,
+                        First-Served
+                        (FCFS)</h3>
+                    <ol class="list-decimal list-inside mb-4">
+                        <li><strong>Description</strong>: FCFS is the simplest scheduling algorithm where processes are
+                            executed in the order they arrive in the ready queue.</li>
+                        <li><strong>Advantages</strong>: Easy to implement and understand.</li>
+                        <li><strong>Disadvantages</strong>: Can lead to the <strong>convoy effect</strong>, where short
+                            processes are delayed by longer ones, leading to poor utilization and increased average
+                            waiting
+                            time.</li>
+                    </ol>
+
+                    <h3 id="54c9be98-c714-457f-8f3b-7c0e95b24224" class="text-2xl font-bold mb-2">Convoy Effect</h3>
+                    <ol class="list-decimal list-inside mb-4">
+                        <li><strong>Description</strong>: The convoy effect occurs in FCFS scheduling when a long
+                            process
+                            occupies the CPU, causing all shorter processes behind it to wait. This results in decreased
+                            system efficiency and increased average waiting time.</li>
+                    </ol>
+
+                    <h3 id="a3feb280-1f09-481e-a3ee-32503c9047f0" class="text-2xl font-bold mb-2">Shortest Job First
+                        (SJF)
+                    </h3>
+                    <ol class="list-decimal list-inside mb-4">
+                        <li><strong>Description</strong>: SJF selects the process with the shortest execution time to
+                            run
+                            next.</li>
+                        <li><strong>Advantages</strong>: Minimizes average waiting time and is optimal if all jobs are
+                            available simultaneously.</li>
+                        <li><strong>Disadvantages</strong>: Not practical for interactive systems and can cause
+                            <strong>starvation</strong> of longer processes.
+                        </li>
+                    </ol>
+
+                    <h3 id="b9787ce4-8d66-4a68-a15d-ec8eec1f44ab" class="text-2xl font-bold mb-2">Shortest Remaining
+                        Time
+                        First (SRTF)
+                    </h3>
+                    <ol class="list-decimal list-inside mb-4">
+                        <li><strong>Description</strong>: SRTF is a preemptive version of SJF, where the process with
+                            the
+                            smallest amount of time remaining until completion is selected to run next.</li>
+                        <li><strong>Advantages</strong>: Further reduces average waiting time compared to SJF.</li>
+                        <li><strong>Disadvantages</strong>: Similar to SJF, it can lead to starvation of longer
+                            processes.
+                        </li>
+                    </ol>
+
+                    <h3 id="6c23d0e3-e527-4cb3-8cf7-70afd1b5889c" class="text-2xl font-bold">Priority Scheduling</h3>
+                    <ol class="list-decimal list-inside">
+                        <li><strong>Description</strong>: Processes are assigned a priority, and the process with the
+                            highest priority is executed first. Priorities can be static or dynamic.</li>
+                        <li><strong>Advantages</strong>: Can provide good response time for high-priority processes.
+                        </li>
+                        <li><strong>Disadvantages</strong>: May lead to <strong>starvation</strong> where low-priority
+                            processes are never executed.</li>
+                    </ol>
+
+                    <h3 id="7aebbb45-7ab0-47ff-b94e-f55662ab8b66" class="text-xl font-bold">Starvation</h3>
+                    <ol class="list-decimal list-inside mb-4">
+                        <li><strong>Description</strong>: Starvation occurs when a process is perpetually delayed
+                            because
+                            other higher-priority processes continually take precedence. This is a significant issue in
+                            priority-based scheduling algorithms.</li>
+                    </ol>
+
+                    <h3 id="b6f53412-e680-40bd-8a04-87ab6dc3125e" class="text-2xl font-bold mb-2">Round Robin (RR)</h3>
+                    <ol class="list-decimal list-inside mb-4">
+                        <li><strong>Description</strong>: RR assigns a fixed time unit per process and cycles through
+                            them
+                            in the ready queue. Each process is given a small time slice (quantum), and if it doesn’t
+                            finish
+                            during this quantum, it is placed at the end of the queue.</li>
+                        <li><strong>Advantages</strong>: Fair and ensures no starvation. Good for time-sharing systems.
+                        </li>
+                        <li><strong>Disadvantages</strong>: Choosing the right time quantum is critical. Too short can
+                            lead
+                            to high overhead, too long can degrade into FCFS.</li>
+                    </ol>
+
+                    <h3 id="fe9cf545-cc47-4a64-bd19-019793b73ecd" class="text-2xl font-bold mb-2">Multilevel Queue
+                        Scheduling</h3>
+                    <ol class="list-decimal list-inside mb-4">
+                        <li><strong>Description</strong>: Processes are divided into different queues based on their
+                            priority or type (e.g., foreground vs. background). Each queue can have its own scheduling
+                            algorithm, and queues themselves are scheduled with a higher-level algorithm.</li>
+                        <li><strong>Advantages</strong>: Flexible and can handle a variety of process types and
+                            priorities.
+                        </li>
+                        <li><strong>Disadvantages</strong>: Complex to implement and manage.</li>
+                    </ol>
+
+                    <h3 id="8d79effd-8f13-4e54-8934-ff15469399ba" class="text-2xl font-bold mb-2">Multilevel Feedback
+                        Queue
+                        Scheduling
+                    </h3>
+                    <ol class="list-decimal list-inside mb-4">
+                        <li><strong>Description</strong>: An extension of multilevel queue scheduling, this algorithm
+                            allows
+                            processes to move between queues based on their behavior and requirements. Typically, a
+                            process
+                            that uses too much CPU time is moved to a lower-priority queue, while processes that wait
+                            too
+                            long can be moved to a higher-priority queue.</li>
+                        <li><strong>Advantages</strong>: Dynamically adjusts to changing process behavior, improving
+                            responsiveness and CPU utilization.</li>
+                        <li><strong>Disadvantages</strong>: Complex to implement and fine-tune.</li>
+                    </ol>
+                </div>
+            </div>
+            </p>
+        </div>
+    </article><span class="sans" style="font-size:14px;padding-top:2em"></span>
+    <p class="text-xl mb-4">
+        This blog article discussed about process scheduling algorithms, process threads, the states of a process and
+        the process control block. It also covered the basics of process scheduling and mentioned some of the most
+        popular algorithms such as FCFS, RR, and multilevel queue scheduling. We also touched on the importance of
+        process scheduling in computer systems and how it helps to manage the available resources efficiently. Overall,
+        this article provided a comprehensive introduction to process scheduling and its various components.
+
+        In conclusion, process scheduling is a crucial component of operating systems that ensures efficient resource
+        allocation and utilization. It is a complex topic that involves many different concepts and algorithms. By
+        understanding process scheduling, we can gain a better appreciation for how computer systems work and how they
+        can be optimized for maximum efficiency.
+
+        I hope this article has been helpful in your understanding of how the operating system manages the processes.
+    </p>
+    <h1 class="italic text-xl font-bold">That's All in this Article</h1>
+    <h1 class="italic text-xl">Thanks for reading</h1>
+    <h1 class="italic text-xl">Crafted with ❤️ by Siddhartha</h1>
+
+</body>
+
+</html>
