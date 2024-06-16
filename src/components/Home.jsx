@@ -7,7 +7,7 @@ import { Analytics } from "@vercel/analytics/react"
 
 function Home() {
     return (
-        <body className="bg-gray-950">
+        <body className="bg-gray-950" style={{ height: "100vh" }}>
             <Analytics />
             <div className="grid grid-cols-2 gap-4 font-mono">
                 <div

@@ -22,14 +22,14 @@ function App() {
       <Header />
       <ScrollToTop />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Homev2 />} />
         <Route path="/about" element={<About />} />
         <Route path="/blogs" element={<BlogList />} />
         <Route path="/upload" element={<UploadBlog />} />
         <Route path="/blog-view" element={<BlogView />} />
         <Route path="/comming-soon" element={<CommingSoon />} />
         <Route path="/authentication" element={<Authentication />} />
-        <Route path="/test" element={<Homev2 />} />
+        {/* <Route path="/test" element={<Homev2 />} /> */}
 
       </Routes>
       <Footer />
