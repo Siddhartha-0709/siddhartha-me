@@ -38,7 +38,7 @@ function Home() {
                 </div>
                 <div className="col-span-1 bg-gray-950" style={{}}>
                     <img
-                        src="https://firebasestorage.googleapis.com/v0/b/shaajo-online-jewellery-a2f57.appspot.com/o/profilepic.png?alt=media&token=edbd6865-1e9d-421a-bae1-a28ec0469569"
+                        src="https://firebasestorage.googleapis.com/v0/b/siddhartha-dev.appspot.com/o/PXL_20240630_063038472.MP~2.jpg?alt=media&token=6f8d9b0b-a812-43e5-a806-1a92aad76d24"
                         alt="Your Image"
                         className="rounded-xl"
                         style={{ marginLeft: "auto" }}
