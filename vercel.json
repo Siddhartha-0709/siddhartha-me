@@ -1,25 +1,8 @@
 {
-    "routes": [
+    "rewrites": [
         {
-            "src": "/",
-            "dest": "/"
-        },
-        {
-            "src": "/blogs",
-            "dest": "/"
-        },
-        {
-            "src": "/blogs-view",
-            "dest": "/blogs"
-        },
-        {
-            "src": "/authentication",
-            "dest": "/"
-        },
-        {
-            "src": "/comming-soon",
-            "dest": "/"
+            "source": "/(.*)",
+            "destination": "/index.html"
         }
-        
     ]
 }

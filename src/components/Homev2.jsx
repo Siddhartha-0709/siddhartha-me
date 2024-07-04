@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import backgroundVideo from '../assets/background.mp4';
-import profilePic from '../assets/profile.jpeg';
+import profilePic from '../assets/dp.jpeg';
 import line from '../assets/line.gif';
 import { Link } from "react-router-dom";
 
@@ -17,13 +17,13 @@ const Homev2 = () => {
     window.location.href = 'https://www.linkedin.com/in/sidd-myself/'
   }
   const handleDownloadPressed = ()=>{
-    window.location.href = 'https://drive.google.com/file/d/1C2fpHt7WA6ApQhd94r0uWkSy5d2Ql1yj/view?usp=sharing'
+    window.location.href = 'https://sidd_2003.hackerresume.io/23697efd-4ec7-4130-8c88-6780a8991790'
   }
 
   return (
     <main style={{ position: 'relative', fontFamily: 'Ubuntu' }}>
-      <video autoPlay loop muted style={{ position: 'absolute', zIndex: -1, width: '100%', height: '100%', objectFit: 'cover' }}>
-        <source src={backgroundVideo} type="video/mp4" />
+      <video autoPlay loop muted style={{ position: 'absolute', zIndex: -1, width: '100%', height: '100%', objectFit: 'cover'  }}>
+        <source src={backgroundVideo} type="video/mp4"/>
       </video>
       <section className='grid grid-cols-2 h-full flex items-center pl-5 pr-5 pb-5' style={{ position: 'relative', display: 'flex', paddingTop: 100 }}>
         <div className='text-white md:w-1/2'>
