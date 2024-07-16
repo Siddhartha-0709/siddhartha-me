@@ -20,9 +20,9 @@ function Header() {
                     <a className="hover:underline underline-offset-4 hover:text-violet-500 ml-3 mr-3" href="https://www.linkedin.com/in/sidd-myself/">
                         LinkedIn
                     </a>
-                    <Link className="hover:bg-orange-500 text-white py-2 px-4 rounded" to={"/comming-soon"}>
-                        For the Love of Tech
-                    </Link>
+                    <a className="hover:bg-orange-500 text-white py-2 px-4 rounded" href="https://siddhartha.featurebase.app/">
+                        Feedback
+                    </a>
                 </nav>
                 <nav className="md:hidden mr-3">
                     <Link className="hover:bg-violet-800 text-white py-2 px-4 rounded font-mono text-lg bg-violet-600" to={"/authentication"} >
